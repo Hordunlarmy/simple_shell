@@ -10,5 +10,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+pid_t _fork(char *command);
+
 
 #endif /* MAIN_H */
