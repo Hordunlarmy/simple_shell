@@ -9,7 +9,7 @@
  */
 ssize_t get_line(char **buffer, size_t *bufsize, FILE *stream)
 {
-	ssize_t len;
+	ssize_t len = 0;
 	*bufsize = 1024;
 	*buffer = malloc(*bufsize * sizeof(char));
 
@@ -18,9 +18,9 @@ ssize_t get_line(char **buffer, size_t *bufsize, FILE *stream)
 		perror("get_line");
 		exit(EXIT_FAILURE);
 	}
-
-	while ((len = getline(buffer, bufsize, stream)) != -1)
+	while (fgets(*buffer, *bufsize, stream) != NULL)
 	{
+		len = strlen(*buffer);
 		if (len > 0 && (*buffer)[len - 1] == '\n')
 		{
 			(*buffer)[len - 1] = '\0';
