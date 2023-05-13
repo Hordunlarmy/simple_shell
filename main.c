@@ -19,6 +19,11 @@ int main(int argc, char **argv)
 		{
 			feof(stdin) ? exit(EXIT_SUCCESS) : exit(EXIT_FAILURE);
 		}
+		if (strcmp(command, "exit") == 0)
+		{
+			free(command);
+			exit(EXIT_SUCCESS);
+		}
 		execute(command);
 	}
 
