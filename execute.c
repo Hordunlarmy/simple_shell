@@ -25,6 +25,8 @@ pid_t execute(char *command)
 			args[i] = strtok(NULL, " \n");
 			i++;
 		}
+		if (args[0] == NULL)
+			exit(EXIT_SUCCESS);
 		if (execve(args[0], args, NULL) == -1)
 		{
 			perror("No such file or directory");
