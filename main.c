@@ -8,7 +8,7 @@
  */
 int main(int argc, char **argv)
 {
-	char *shellPrompt = "#DoingHardThings $ ";
+	char *shellPrompt = "#cisfun$ ";
 	char *command;
 	size_t n = 0;
 	size_t r_value = 0;
@@ -20,7 +20,7 @@ int main(int argc, char **argv)
 
 		if (r_value == -1)
 			exit(EXIT_FAILURE);
-		_fork(command);
+		execute(command);
 	}
 
 	free(command);
