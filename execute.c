@@ -33,7 +33,6 @@ pid_t execute(char *command)
 			return (1);
 		}
 	}
-	get_path(command, args);
 
 	if (pid != 0)
 	{

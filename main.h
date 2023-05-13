@@ -36,7 +36,6 @@ linked_path *link_path(void);
 pid_t execute(char *command);
 ssize_t get_line(char **buffer, size_t *bufsize, FILE *stream);
 char *str_tok(char *command, const char *delim);
-char get_path(char *executable, char **args);
 
 
 #endif /* MAIN_H */
