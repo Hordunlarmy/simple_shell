@@ -18,11 +18,11 @@ pid_t execute(char *command)
 
 	if (pid == 0)
 	{
-		args[0] = strtok(command, " \n");
+		args[0] = str_tok(command, " \n");
 
 		while (args[i] != NULL && i < 10 - 1)
 		{
-			args[i] = strtok(NULL, " \n");
+			args[i] = str_tok(NULL, " \n");
 			i++;
 		}
 		if (args[0] == NULL)
