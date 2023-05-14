@@ -9,34 +9,35 @@ pid_t execute(char *command)
 {
 	char *args[10];
 	pid_t pid;
-	int i = 1;
+	int i = 0;
+	char *token;
 
 	pid = fork();
 
 	if (pid == -1)
 		exit(EXIT_FAILURE);
 
+	if (pid != 0)
+		wait(NULL);
+
 	if (pid == 0)
 	{
-		args[0] = str_tok(command, " \n");
+		token = str_tok(command, " \n");
 
-		while (args[i] != NULL && i < 10 - 1)
+		while (token != NULL && i < 10 - 1)
 		{
-			args[i] = str_tok(NULL, " \n");
-			i++;
+			args[i++] = token;
+			token = str_tok(NULL, " \n");
 		}
-		if (args[0] == NULL)
+		args[i] = NULL;
+		if (args[i - 1] == NULL)
 			exit(EXIT_SUCCESS);
-		else if (execve(args[0], args, NULL) == -1)
+		if (execve(args[0], args, NULL) == -1)
 		{
 			perror("No such file or directory");
-			return (1);
+			exit(EXIT_FAILURE);
 		}
 	}
 
-	if (pid != 0)
-	{
-		wait(NULL);
-	}
 	return (pid);
 }
