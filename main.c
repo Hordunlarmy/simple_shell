@@ -15,16 +15,16 @@ int main(int argc, char **argv)
 	for (; ;)
 	{
 		printf("%s", shellPrompt);
-		if ((get_line(&command, &n, stdin)) == -1)
+		if ((get_line(argv, &n, stdin)) == -1)
 		{
 			feof(stdin) ? exit(EXIT_SUCCESS) : exit(EXIT_FAILURE);
 		}
-		if (strcmp(command, "exit") == 0)
+		if (strcmp(argv[0], "exit") == 0)
 		{
-			free(command);
+			free(*argv);
 			exit(EXIT_SUCCESS);
 		}
-		execute(command);
+		execute(argv);
 	}
 
 	free(command);
