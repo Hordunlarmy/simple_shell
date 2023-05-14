@@ -21,7 +21,11 @@ pid_t execute(char **argv)
 
 	if (pid == 0)
 	{
+<<<<<<< HEAD
 		i = tokenize(*argv, args);
+=======
+		i = tokenize(command, args);
+>>>>>>> e466b39a7e900e2416af90a0f7db4f27837ce0a0
 		args[i] = NULL;
 		if (args[i - 1] == NULL)
 			exit(EXIT_SUCCESS);
