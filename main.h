@@ -33,9 +33,10 @@ typedef struct linked_path
 
 char *_getenv(const char *name);
 linked_path *link_path(void);
-pid_t execute(char *command);
+pid_t execute(char **argv);
 ssize_t get_line(char **buffer, size_t *bufsize, FILE *stream);
 char *str_tok(char *command, const char *delim);
+int tokenize(char *command, char **args);
 
 
 #endif /* MAIN_H */

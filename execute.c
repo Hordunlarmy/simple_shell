@@ -2,15 +2,14 @@
 
 /**
  * execute - Entry point
- * @command: command passed
+ * @argv: command passed
  * Return: id of fork
  */
-pid_t execute(char *command)
+pid_t execute(char **argv)
 {
 	char *args[10];
 	pid_t pid;
-	int i = 0;
-	char *token;
+	int i;
 
 	pid = fork();
 
@@ -22,13 +21,7 @@ pid_t execute(char *command)
 
 	if (pid == 0)
 	{
-		token = str_tok(command, " \n");
-
-		while (token != NULL && i < 10 - 1)
-		{
-			args[i++] = token;
-			token = str_tok(NULL, " \n");
-		}
+		i = tokenize(*argv, args);
 		args[i] = NULL;
 		if (args[i - 1] == NULL)
 			exit(EXIT_SUCCESS);
