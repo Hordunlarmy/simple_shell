@@ -7,7 +7,7 @@
  */
 pid_t execute(char *command)
 {
-	char *args[10];
+	char *args[MAXARGS];
 	pid_t pid;
 	int i = 0;
 	char *token;
@@ -24,7 +24,7 @@ pid_t execute(char *command)
 	{
 		token = str_tok(command, " \n");
 
-		while (token != NULL && i < 10 - 1)
+		while (token != NULL && i < MAXARGS - 1)
 		{
 			args[i++] = token;
 			token = str_tok(NULL, " \n");

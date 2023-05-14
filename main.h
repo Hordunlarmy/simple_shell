@@ -15,6 +15,10 @@ extern char **environ;
 
 
 
+/** MACROS **/
+#define MAXARGS 128
+
+
 
 /**
  * struct linked_path - This is a linked list containing
