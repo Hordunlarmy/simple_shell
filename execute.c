@@ -2,10 +2,10 @@
 
 /**
  * execute - Entry point
- * @argv: command passed
+ * @command: command passed
  * Return: id of fork
  */
-pid_t execute(char **argv)
+pid_t execute(char *command)
 {
 	char *args[10];
 	pid_t pid;
@@ -21,7 +21,7 @@ pid_t execute(char **argv)
 
 	if (pid == 0)
 	{
-		i = tokenize(*argv, args);
+		i = tokenize(command, args);
 		args[i] = NULL;
 		if (args[i - 1] == NULL)
 			exit(EXIT_SUCCESS);

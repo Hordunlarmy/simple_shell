@@ -9,14 +9,12 @@
 int tokenize(char *command, char **args)
 {
 	int i = 0;
-	char *token = strtok(command, " \n");
+	char *token = str_tok(command, " \n");
 
-	while (token != NULL && i < 10 - 1)
-	{
-		args[i++] = token;
-		token = strtok(NULL, " \n");
-	}
-	args[i] = NULL;
-
-	return (i);
+		while (token != NULL && i < 10 - 1)
+		{
+			args[i++] = token;
+			token = str_tok(NULL, " \n");
+		}
+		return (i);
 }

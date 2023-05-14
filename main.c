@@ -9,7 +9,6 @@
 int main(int argc, char **argv)
 {
 	char *shellPrompt = "#cisfun$ ";
-	char *command;
 	size_t n = 0;
 
 	for (; ;)
@@ -24,10 +23,10 @@ int main(int argc, char **argv)
 			free(*argv);
 			exit(EXIT_SUCCESS);
 		}
-		execute(argv);
+		execute(*argv);
 	}
 
-	free(command);
+	free(argv);
 
 	return (0);
 }
