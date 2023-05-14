@@ -31,11 +31,11 @@ typedef struct linked_path
 
 
 
-char *_strtok(char *str, const char *delim);
 char *_getenv(const char *name);
 linked_path *link_path(void);
 pid_t execute(char *command);
 ssize_t get_line(char **buffer, size_t *bufsize, FILE *stream);
+char *str_tok(char *command, const char *delim);
 
 
 #endif /* MAIN_H */
