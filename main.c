@@ -11,15 +11,14 @@ int main(int argc, char **argv)
 	char *shellPrompt = "#cisfun$ ";
 	char *command;
 	size_t n = 0;
-	size_t r_value = 0;
 
 	for (; ;)
 	{
 		printf("%s", shellPrompt);
-		r_value = getline(&command, &n, stdin);
-
-		if (r_value == -1)
-			exit(EXIT_FAILURE);
+		if ((get_line(&command, &n, stdin)) == -1)
+		{
+			feof(stdin) ? exit(EXIT_SUCCESS) : exit(EXIT_FAILURE);
+		}
 		execute(command);
 	}
 
