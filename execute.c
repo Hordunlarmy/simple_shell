@@ -30,14 +30,13 @@ pid_t execute(char *command)
 			token = str_tok(NULL, " \n");
 		}
 		args[i] = NULL;
-		if (args[0] == NULL)
+		if (args[i - 1] == NULL)
 			exit(EXIT_SUCCESS);
 		if (execve(args[0], args, NULL) == -1)
 		{
 			perror("No such file or directory");
-			return (1);
+			exit(EXIT_FAILURE);
 		}
-		printf("end of child process\n");
 	}
 
 	return (pid);
