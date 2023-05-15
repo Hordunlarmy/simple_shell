@@ -21,12 +21,12 @@ pid_t execute(char *command)
 
 	if (pid != 0)
 		wait(NULL);
-	
+
 	if (pid == 0)
 	{
 		if (args[0][0] == '/' || args[0][0] == '.')
 		{
-			if (execve(args[0], args, NULL) == -1)
+			if (execve(args[0], args, environ) == -1)
 			{
 				fprintf(stderr, "%s: No such file or directory\n", args[0]);
 				exit(EXIT_FAILURE);
