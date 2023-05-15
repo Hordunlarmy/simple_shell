@@ -6,8 +6,9 @@
  */
 linked_path *link_path(void)
 {
-	char *token;
+	char *dir;
 	char *Path;
+	char *Path_dup;
 	linked_path *head;
 	linked_path *current_node = (linked_path *)malloc(sizeof(linked_path));
 
@@ -15,17 +16,18 @@ linked_path *link_path(void)
 
 
 	Path = _getenv("PATH");
-	token = strtok(Path, ":\n");
-	current_node->dir = token;
+	Path_dup = strdup(Path);
+	dir = str_tok(Path_dup, ":");
+	current_node->dir = strdup(dir);
 
-	while (token != NULL)
+	while (dir != NULL)
 	{
-		token = strtok(NULL, ":\n");
-		if (token != NULL)
+		dir = str_tok(NULL, ":");
+		if (dir != NULL)
 		{
 			current_node->next = (linked_path *)malloc(sizeof(linked_path));
 			current_node = current_node->next;
-			current_node->dir = token;
+			current_node->dir = strdup(dir);
 		}
 	}
 	current_node->next = NULL;

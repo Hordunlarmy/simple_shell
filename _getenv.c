@@ -24,7 +24,7 @@ char *_getenv(const char *name)
 		if (strcmp(envi_ron, name) == 0)
 		{
 			*equals = '=';
-			return (environ[i]);
+			return (environ[i] + strlen(name) + 1);
 		}
 		*equals = '=';
 		i++;
