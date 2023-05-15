@@ -15,6 +15,10 @@ extern char **environ;
 
 
 
+/** MACROS **/
+#define MAXARGS 128
+
+
 
 /**
  * struct linked_path - This is a linked list containing
@@ -34,6 +38,7 @@ typedef struct linked_path
 char *_getenv(const char *name);
 linked_path *link_path(void);
 pid_t execute(char *command);
+int execute_with_path(char *command, char **args);
 ssize_t get_line(char **buffer, size_t *bufsize, FILE *stream);
 char *str_tok(char *command, const char *delim);
 int tokenize(char *command, char **args);
