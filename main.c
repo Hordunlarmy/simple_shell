@@ -26,7 +26,6 @@ int main(int argc, char **argv)
 		if (strcmp(argv[0], "env") == 0)
 		{
 			my_env();
-			exit(EXIT_SUCCESS);
 		}
 		execute(*argv);
 	}
