@@ -21,17 +21,8 @@ pid_t execute(char *command)
 
 	if (pid == 0)
 	{
-<<<<<<< HEAD
-		token = str_tok(command, " \n");
 
-		while (token != NULL && i < MAXARGS - 1)
-		{
-			args[i++] = token;
-			token = str_tok(NULL, " \n");
-		}
-=======
 		i = tokenize(command, args);
->>>>>>> main
 		args[i] = NULL;
 		if (args[i - 1] == NULL)
 			exit(EXIT_SUCCESS);
