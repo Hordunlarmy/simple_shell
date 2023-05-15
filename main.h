@@ -37,6 +37,7 @@ pid_t execute(char *command);
 ssize_t get_line(char **buffer, size_t *bufsize, FILE *stream);
 char *str_tok(char *command, const char *delim);
 int tokenize(char *command, char **args);
+void my_env(void);
 
 
 #endif /* MAIN_H */
