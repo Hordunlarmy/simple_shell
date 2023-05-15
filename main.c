@@ -18,15 +18,6 @@ int main(int argc, char **argv)
 		{
 			feof(stdin) ? exit(EXIT_SUCCESS) : exit(EXIT_FAILURE);
 		}
-		if (strcmp(argv[0], "exit") == 0)
-		{
-			free(*argv);
-			exit(EXIT_SUCCESS);
-		}
-		if (strcmp(argv[0], "env") == 0)
-		{
-			my_env();
-		}
 		execute(*argv);
 	}
 
