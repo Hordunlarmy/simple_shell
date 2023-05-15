@@ -35,6 +35,7 @@ typedef struct linked_path
 
 
 
+int check_path(char **args);
 char *_getenv(const char *name);
 linked_path *link_path(void);
 pid_t execute(char *command);
