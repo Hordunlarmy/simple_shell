@@ -6,7 +6,7 @@
  * @argv: argument vector
  * Return: Always 0 (Success)
  */
-int main(int argc, char **argv)
+int main(int argc __attribute__((unused)), char **argv)
 {
 	char *shellPrompt = "#cisfun$ ";
 	size_t n = 0;

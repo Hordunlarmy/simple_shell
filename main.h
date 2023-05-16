@@ -1,6 +1,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 #define _POSIX_C_SOURCE 200809L
+#define _XOPEN_SOURCE 700
 
 /* standard library functions */
 #include <stdio.h>
@@ -40,13 +41,15 @@ int check_path(char **args);
 char *_getenv(const char *name);
 linked_path *link_path(void);
 pid_t execute(char *command);
-int execute_with_path(char *command, char **args);
+int execute_with_path(char **args);
 ssize_t get_line(char **buffer, size_t *bufsize, FILE *stream);
 char *str_tok(char *command, const char *delim);
 int tokenize(char *command, char **args);
-void my_env(void);
-void cases(char **args);
+int built_ins(char **args);
+int my_env(void);
 int my_cd(char **args);
+int my_setenv(const char *name, const char *value, int overwrite);
+int my_unsetenv(char **args);
 
 
 #endif /* MAIN_H */
