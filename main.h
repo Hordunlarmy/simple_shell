@@ -45,9 +45,9 @@ ssize_t get_line(char **buffer, size_t *bufsize, FILE *stream);
 char *str_tok(char *command, const char *delim);
 int tokenize(char *command, char **args);
 int built_ins(char **args);
-void my_env(void);
+int my_env(void);
 int my_cd(char **args);
-int my_setenv(char **args);
+int my_setenv(const char *name, const char *value, int overwrite);
 int my_unsetenv(char **args);
 
 

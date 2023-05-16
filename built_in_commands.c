@@ -24,6 +24,7 @@ int built_ins(char **args)
 	if (strcmp(args[0], "env") == 0)
 	{
 		my_env();
+		return (1);
 	}
 	if (strcmp(args[0], "cd") == 0)
 	{
@@ -32,7 +33,7 @@ int built_ins(char **args)
 	}
 	if (strcmp(args[0], "setenv") == 0)
 	{
-		my_setenv(args);
+		my_setenv(args[1], args[2], 1);
 		return (1);
 	}
 	if (strcmp(args[0], "unsetenv") == 0)
@@ -48,7 +49,7 @@ int built_ins(char **args)
  *
  * Return: void
  */
-void my_env(void)
+int my_env(void)
 {
 	char **env = environ;
 
@@ -57,6 +58,7 @@ void my_env(void)
 		printf("%s\n", *env);
 		env++;
 	}
+	return (0);
 }
 
 
@@ -71,15 +73,15 @@ int my_cd(char **args)
 	char cwd[1024];
 
 	if (args[1] == NULL || strcmp(args[1], "~") == 0)
-		new_dir = getenv("HOME");
+		new_dir = _getenv("HOME");
 	else if (strcmp(args[1], "-") == 0)
-		new_dir = getenv("OLDPWD");
+		new_dir = _getenv("OLDPWD");
 	else
 		new_dir = args[1];
 
-	old_dir = getenv("PWD");
+	old_dir = _getenv("PWD");
 
-	if (setenv("OLDPWD", old_dir, 1) != 0)
+	if (my_setenv("OLDPWD", old_dir, 1) != 0)
 	{
 		fprintf(stderr, "Error: Could not set OLDPWD environment variable\n");
 		return (1);
@@ -96,7 +98,7 @@ int my_cd(char **args)
 		fprintf(stderr, "Error: Could not get current directory\n");
 		return (1);
 	}
-	if (setenv("PWD", cwd, 1) != 0)
+	if (my_setenv("PWD", cwd, 1) != 0)
 	{
 		fprintf(stderr, "Error: Could not set PWD environment variable\n");
 		return (1);
@@ -108,23 +110,16 @@ int my_cd(char **args)
 
 /**
  * my_setenv - Entry point
- * @args: command and arguments
+ * @name: name of environment variable
+ * @value: environment value
+ * @overwrite: replace variable
  * Return: Always 0 (Success)
  */
-int my_setenv(char **args)
+int my_setenv(const char *name, const char *value, int overwrite)
 {
-	int i, j, len;
-	char *env;
-	char *name = args[1];
-	char *value = args[2];
-
-	if (args[1] == NULL || args[2] == NULL || args[3] != NULL)
-	{
-		fprintf(stderr, "Error: Invalid argument(s)\n");
-		return (1);
-	}
-	len = strlen(name) + strlen(value) + 2;
-	env = malloc(len);
+	int i, j;
+	int len = strlen(name) + strlen(value) + 2;
+	char *env = malloc(len);
 
 	if (env == NULL)
 	{
@@ -133,17 +128,21 @@ int my_setenv(char **args)
 	}
 
 	for (i = 0; name[i] != '\0'; i++)
+	{
 		env[i] = name[i];
+	}
 	env[i] = '=';
-	i++;
 
 	for (j = 0; value[j] != '\0'; j++)
 	{
-		env[i] = value[j];
-		i++;
+		env[i + j + 1] = value[j];
 	}
-	env[i] = '\0';
+	env[i + j + 1] = '\0';
 
+	if (overwrite == 0 && getenv(name) != NULL)
+	{
+		return (0);
+	}
 	if (putenv(env) != 0)
 	{
 		fprintf(stderr, "Error: Setting environment variable failed\n");
