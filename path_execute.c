@@ -1,15 +1,13 @@
 #include "main.h"
 /**
  * execute_with_path - is a function that exeuctes command from the path
- * @command: is the command to be executed
  * @args: is an array of tokenized commands
  * Return: The process id
  */
-int execute_with_path(char *command, char **args)
+int execute_with_path(char **args)
 {
 	linked_path *temp = link_path();
 	char fullpath[1024];
-	pid_t pid;
 
 	while (temp != NULL)
 	{

@@ -9,7 +9,7 @@
  */
 ssize_t get_line(char **buffer, size_t *bufsize, FILE *stream)
 {
-	ssize_t len = 0;
+	size_t len = 0;
 	*bufsize = 1024;
 	*buffer = malloc(*bufsize * sizeof(char));
 

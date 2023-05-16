@@ -12,7 +12,9 @@ pid_t execute(char *command)
 
 	i = tokenize(command, args);
 	args[i] = NULL;
-	cases(args);
+
+	if (built_ins(args))
+		return (0);
 
 	pid = fork();
 
@@ -34,11 +36,11 @@ pid_t execute(char *command)
 		}
 		else if (check_path(args) == 1)
 		{
-			execute_with_path(command, args);
+			execute_with_path(args);
 		}
 		else
 		{
-			fprintf(stderr, "No such file or directory\n");
+			fprintf(stderr, "%s: No such file or directory\n", args[0]);
 			exit(EXIT_FAILURE);
 		}
 	}
