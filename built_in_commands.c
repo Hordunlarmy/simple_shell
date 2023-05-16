@@ -5,7 +5,7 @@
  * @args: command and arguments
  * Return: Always 0 (Success)
  */
-void built_ins(char **args)
+int built_ins(char **args)
 {
 	int exit_status;
 
@@ -28,15 +28,19 @@ void built_ins(char **args)
 	if (strcmp(args[0], "cd") == 0)
 	{
 		my_cd(args);
+		return (1);
 	}
 	if (strcmp(args[0], "setenv") == 0)
 	{
 		my_setenv(args);
+		return (1);
 	}
 	if (strcmp(args[0], "unsetenv") == 0)
 	{
 		my_unsetenv(args);
+		return (1);
 	}
+	return (0);
 }
 
 /**

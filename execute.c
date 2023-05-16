@@ -12,7 +12,9 @@ pid_t execute(char *command)
 
 	i = tokenize(command, args);
 	args[i] = NULL;
-	built_ins(args);
+
+	if (built_ins(args))
+		return (0);
 
 	pid = fork();
 
