@@ -34,7 +34,7 @@ pid_t execute(char *command)
 		}
 		else if (check_path(args) == 1)
 		{
-			execute_with_path(command, args);
+			execute_with_path(args);
 		}
 		else
 		{
