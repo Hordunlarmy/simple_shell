@@ -139,7 +139,7 @@ int my_setenv(const char *name, const char *value, int overwrite)
 	}
 	env[i + j + 1] = '\0';
 
-	if (overwrite == 0 && getenv(name) != NULL)
+	if (overwrite == 0 && _getenv(name) != NULL)
 	{
 		return (0);
 	}
