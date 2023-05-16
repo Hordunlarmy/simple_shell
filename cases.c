@@ -1,11 +1,11 @@
 #include "main.h"
 
 /**
- * cases - Entry point
+ * built_ins - Entry point
  * @args: command and arguments
  * Return: Always 0 (Success)
  */
-void cases(char **args)
+void built_ins(char **args)
 {
 	int exit_status;
 
@@ -109,18 +109,18 @@ int my_cd(char **args)
  */
 int my_setenv(char **args)
 {
+	int i, j, len;
+	char *env;
+	char *name = args[1];
+	char *value = args[2];
+
 	if (args[1] == NULL || args[2] == NULL || args[3] != NULL)
 	{
 		fprintf(stderr, "Error: Invalid argument(s)\n");
 		return (1);
 	}
-
-	int i, len;
-	char *name = args[1];
-	char *value = args[2];
-
 	len = strlen(name) + strlen(value) + 2;
-	char *env = malloc(len);
+	env = malloc(len);
 
 	if (env == NULL)
 	{
@@ -129,19 +129,15 @@ int my_setenv(char **args)
 	}
 
 	for (i = 0; name[i] != '\0'; i++)
-	{
 		env[i] = name[i];
-	}
-
 	env[i] = '=';
 	i++;
 
-	for (int j = 0; value[j] != '\0'; j++)
+	for (j = 0; value[j] != '\0'; j++)
 	{
 		env[i] = value[j];
 		i++;
 	}
-
 	env[i] = '\0';
 
 	if (putenv(env) != 0)
@@ -149,7 +145,6 @@ int my_setenv(char **args)
 		fprintf(stderr, "Error: Setting environment variable failed\n");
 		return (1);
 	}
-
 	return (0);
 }
 
@@ -160,24 +155,24 @@ int my_setenv(char **args)
  */
 int my_unsetenv(char **args)
 {
+	int i, j;
+	char *name = args[1];
+	int len = strlen(name);
+
 	if (args[1] == NULL || args[2] != NULL)
 	{
 		fprintf(stderr, "Error: Invalid argument(s)\n");
 		return (1);
 	}
 
-	char *name = args[1];
-	int len = strlen(name);
-
-	for (int i = 0; environ[i] != NULL; i++)
+	for (i = 0; environ[i] != NULL; i++)
 	{
 		if (strncmp(environ[i], name, len) == 0 && environ[i][len] == '=')
 		{
-			for (int j = i; environ[j] != NULL; j++)
+			for (j = i; environ[j] != NULL; j++)
 			{
 				environ[j] = environ[j + 1];
 			}
-
 			break;
 		}
 	}
