@@ -40,7 +40,7 @@ pid_t execute(char *command)
 		}
 		else
 		{
-			fprintf(stderr, "No such file or directory\n");
+			fprintf(stderr, "%s: No such file or directory\n", args[0]);
 			exit(EXIT_FAILURE);
 		}
 	}
