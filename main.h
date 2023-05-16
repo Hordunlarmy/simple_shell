@@ -1,6 +1,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 #define _POSIX_C_SOURCE 200809L
+#define _XOPEN_SOURCE 700
 
 /* standard library functions */
 #include <stdio.h>
@@ -46,6 +47,8 @@ int tokenize(char *command, char **args);
 void my_env(void);
 void cases(char **args);
 int my_cd(char **args);
+int my_setenv(char **args);
+int my_unsetenv(char **args);
 
 
 #endif /* MAIN_H */

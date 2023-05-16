@@ -29,6 +29,14 @@ void cases(char **args)
 	{
 		my_cd(args);
 	}
+	if (strcmp(args[0], "setenv") == 0)
+	{
+		my_setenv(args);
+	}
+	if (strcmp(args[0], "unsetenv") == 0)
+	{
+		my_unsetenv(args);
+	}
 }
 
 /**
@@ -88,6 +96,90 @@ int my_cd(char **args)
 	{
 		fprintf(stderr, "Error: Could not set PWD environment variable\n");
 		return (1);
+	}
+
+	return (0);
+}
+
+
+/**
+ * my_setenv - Entry point
+ * @args: command and arguments
+ * Return: Always 0 (Success)
+ */
+int my_setenv(char **args)
+{
+	if (args[1] == NULL || args[2] == NULL || args[3] != NULL)
+	{
+		fprintf(stderr, "Error: Invalid argument(s)\n");
+		return (1);
+	}
+
+	int i, len;
+	char *name = args[1];
+	char *value = args[2];
+
+	len = strlen(name) + strlen(value) + 2;
+	char *env = malloc(len);
+
+	if (env == NULL)
+	{
+		fprintf(stderr, "Error: Memory allocation failed\n");
+		return (1);
+	}
+
+	for (i = 0; name[i] != '\0'; i++)
+	{
+		env[i] = name[i];
+	}
+
+	env[i] = '=';
+	i++;
+
+	for (int j = 0; value[j] != '\0'; j++)
+	{
+		env[i] = value[j];
+		i++;
+	}
+
+	env[i] = '\0';
+
+	if (putenv(env) != 0)
+	{
+		fprintf(stderr, "Error: Setting environment variable failed\n");
+		return (1);
+	}
+
+	return (0);
+}
+
+/**
+ * my_unsetenv - Entry point
+ * @args: command and arguments
+ * Return: Always 0 (Success)
+ */
+int my_unsetenv(char **args)
+{
+	if (args[1] == NULL || args[2] != NULL)
+	{
+		fprintf(stderr, "Error: Invalid argument(s)\n");
+		return (1);
+	}
+
+	char *name = args[1];
+	int len = strlen(name);
+
+	for (int i = 0; environ[i] != NULL; i++)
+	{
+		if (strncmp(environ[i], name, len) == 0 && environ[i][len] == '=')
+		{
+			for (int j = i; environ[j] != NULL; j++)
+			{
+				environ[j] = environ[j + 1];
+			}
+
+			break;
+		}
 	}
 
 	return (0);
