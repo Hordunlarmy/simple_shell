@@ -35,7 +35,8 @@ typedef struct linked_path
 
 
 
-
+char *get_dir();
+int _setenv(const char *name, const char *value, int overwrite);
 int check_path(char **args);
 char *_getenv(const char *name);
 linked_path *link_path(void);
