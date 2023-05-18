@@ -43,9 +43,9 @@ typedef struct linked_path
  */
 typedef struct alias
 {
-	char *saved_alias;
-	char *main_command;
-	char *new_command;
+	char saved_alias[100];
+	char *main_command[100];
+	char *new_command[100];
 	struct alias *next;
 } alias;
 
