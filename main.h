@@ -40,7 +40,7 @@ int _setenv(const char *name, const char *value, int overwrite);
 int check_path(char **args);
 char *_getenv(const char *name);
 linked_path *link_path(void);
-pid_t execute(char *command);
+int execute(char *command);
 int execute_with_path(char **args);
 ssize_t get_line(char **buffer, size_t *bufsize, FILE *stream);
 char *str_tok(char *command, const char *delim);

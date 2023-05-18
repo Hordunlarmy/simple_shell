@@ -4,7 +4,7 @@
  * @command: command passed
  * Return: id of fork
  */
-pid_t execute(char *command)
+int execute(char *command)
 {
 	char *args[MAXARGS];
 	pid_t pid;
@@ -45,5 +45,5 @@ pid_t execute(char *command)
 		}
 	}
 
-	return (pid);
+	return (0);
 }
