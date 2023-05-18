@@ -41,6 +41,10 @@ int built_ins(char **args)
 		my_unsetenv(args);
 		return (1);
 	}
+	if (strcmp(args[0], "alias") == 0)
+	{
+		my_alias(args);
+	}
 	return (0);
 }
 
