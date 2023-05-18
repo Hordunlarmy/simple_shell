@@ -50,6 +50,7 @@ int my_env(void);
 int my_cd(char **args);
 int my_setenv(const char *name, const char *value, int overwrite);
 int my_unsetenv(char **args);
+int my_echo(char **args);
 
 
 #endif /* MAIN_H */
