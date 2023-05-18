@@ -33,6 +33,21 @@ typedef struct linked_path
 	struct linked_path *next;
 } linked_path;
 
+/**
+ * struct alias - This is a linked list containing
+ * ---------------------Each diretory in the path
+ * @saved_alias: this is the keyvalue pair
+ * @main_command: is the main command
+ * @new_command: is a new command
+ * @next: is a pointer to the next alias
+ */
+typedef struct alias
+{
+	char *saved_alias;
+	char *main_command;
+	char *new_command;
+	struct alias *next;
+} alias;
 
 
 char *get_dir();
