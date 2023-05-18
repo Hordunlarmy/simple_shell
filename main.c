@@ -14,6 +14,7 @@ int main(int argc __attribute__((unused)), char **argv)
 	for (; ;)
 	{
 		printf("%s/%s", get_dir(), shellPrompt);
+		fflush(stdout);
 		if ((get_line(argv, &n, stdin)) == -1)
 		{
 			feof(stdin) ? exit(EXIT_SUCCESS) : exit(EXIT_FAILURE);
