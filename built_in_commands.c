@@ -150,16 +150,20 @@ int my_echo(char **args)
 	int pid;
 	int i;
 
-	if (args[1] != NULL && strcmp(args[1], "$$") == 0)
+	for (i = 1; args[i] != NULL && i < MAXARGS - 1; i++)
 	{
-		pid = getpid();
-		printf("%d\n", pid);
+		if (i == 1)
+		{
+			if (strcmp(args[i], "$$") == 0)
+			{
+				pid = getpid();
+				printf("%d ", pid);
+				continue;
+			}
+		}
+		printf("%s ", args[i]);
 	}
-	else
-	{
-		for (i = 1; args[i] != NULL && i < MAXARGS - 1; i++)
-			printf("%s ", args[i]);
-		printf("\n");
-	}
+	printf("\n");
+
 	return (0);
 }
