@@ -11,9 +11,11 @@ int my_env(void)
 
 	while (*env != NULL)
 	{
-		printf("%s\n", *env);
+		write(STDOUT_FILENO, *env, _strlen(*env));
+		write(STDOUT_FILENO, "\n", 1);
 		env++;
 	}
+
 	return (0);
 }
 
@@ -28,9 +30,9 @@ int my_cd(char **args)
 	char *new_dir, *old_dir;
 	char cwd[1024];
 
-	if (args[1] == NULL || strcmp(args[1], "~") == 0)
+	if (args[1] == NULL || _strcmp(args[1], "~") == 0)
 		new_dir = _getenv("HOME");
-	else if (strcmp(args[1], "-") == 0)
+	else if (_strcmp(args[1], "-") == 0)
 		new_dir = _getenv("OLDPWD");
 	else
 		new_dir = args[1];
@@ -158,6 +160,8 @@ int my_echo(char **args)
 			pid = getpid();
 			printf("%d ", pid);
 		}
+		else if (strcmp(args[i], "$?") == 0)
+			printf("%d ", exit_status);
 		else if (args[i][0] == '$')
 		{
 			var_name = args[i] + 1;

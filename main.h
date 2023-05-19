@@ -13,6 +13,7 @@
 
 /** Global environment */
 extern char **environ;
+extern int exit_status;
 
 
 
@@ -51,6 +52,8 @@ int my_cd(char **args);
 int my_setenv(const char *name, const char *value, int overwrite);
 int my_unsetenv(char **args);
 int my_echo(char **args);
+int _strlen(char *s);
+int _strcmp(char *s1, char *s2);
 
 
 #endif /* MAIN_H */

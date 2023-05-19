@@ -4,11 +4,12 @@
  * @command: command passed
  * Return: id of fork
  */
+int exit_status = 0;
 int execute(char *command)
 {
 	char *args[MAXARGS];
 	pid_t pid;
-	int i;
+	int i, status;
 
 	i = tokenize(command, args);
 	args[i] = NULL;
@@ -22,7 +23,14 @@ int execute(char *command)
 		exit(EXIT_FAILURE);
 
 	if (pid != 0)
-		wait(NULL);
+	{
+		wait(&status);
+		if (WIFEXITED(status))
+		{
+			exit_status = WEXITSTATUS(status);
+		}
+		return (0);
+	}
 
 	if (pid == 0)
 	{
