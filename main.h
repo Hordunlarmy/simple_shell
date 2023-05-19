@@ -43,13 +43,18 @@ typedef struct linked_path
  */
 typedef struct alias
 {
-	char saved_alias[100];
-	char *main_command[100];
-	char *new_command[100];
+	char *saved_alias;
+	char *main_command;
+	char *new_command;
 	struct alias *next;
 } alias;
 
+/** global alias list **/
+alias *alias_list;
 
+
+
+int my_alias(char **args, alias *alias_list);
 char *get_dir();
 int _setenv(const char *name, const char *value, int overwrite);
 int check_path(char **args);
@@ -66,6 +71,11 @@ int my_cd(char **args);
 int my_setenv(const char *name, const char *value, int overwrite);
 int my_unsetenv(char **args);
 int my_echo(char **args);
+alias *create_alias(alias *alias_list, char *new, char *main);
+alias *add_alias(alias *head, char *new, char *main);
+void print_alias_list(alias *head);
+char *check_alias(char *new);
+int execute_alias(char *main, char **args);
 
 
 #endif /* MAIN_H */

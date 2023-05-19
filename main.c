@@ -10,6 +10,7 @@ int main(int argc __attribute__((unused)), char **argv)
 {
 	char *shellPrompt = "#cisfun$ ";
 	size_t n = 0;
+	alias_list = NULL;
 
 	for (; ;)
 	{

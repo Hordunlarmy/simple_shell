@@ -24,7 +24,7 @@ int execute(char *command)
 	if (pid != 0)
 		wait(NULL);
 
-	if (pid == 0)
+	if (pid == 0 && args[0][0] != '\0')
 	{
 		if (args[0][0] == '/' || args[0][0] == '.')
 		{
