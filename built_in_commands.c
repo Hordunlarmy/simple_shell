@@ -147,23 +147,36 @@ int my_unsetenv(char **args)
  */
 int my_echo(char **args)
 {
-	int pid;
-	int i;
+	int i, pid;
+	char *value;
+	char *var_name;
 
 	for (i = 1; args[i] != NULL && i < MAXARGS - 1; i++)
 	{
-		if (i == 1)
+		if (strcmp(args[i], "$$") == 0)
 		{
-			if (strcmp(args[i], "$$") == 0)
+			pid = getpid();
+			printf("%d ", pid);
+		}
+		else if (args[i][0] == '$')
+		{
+			var_name = args[i] + 1;
+			value = _getenv(var_name);
+			if (value != NULL)
 			{
-				pid = getpid();
-				printf("%d ", pid);
-				continue;
+				printf("%s ", value);
+			}
+			else
+			{
+				printf("Variable not found: %s ", args[i]);
 			}
 		}
-		printf("%s ", args[i]);
+		else
+		{
+			printf("%s ", args[i]);
+		}
 	}
-	printf("\n");
 
+	printf("\n");
 	return (0);
 }
