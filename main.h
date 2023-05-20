@@ -43,7 +43,7 @@ char *_getenv(const char *name);
 linked_path *link_path(void);
 int execute(char *command);
 int execute_with_path(char **args);
-ssize_t get_line(char **buffer, size_t *bufsize, FILE *stream);
+ssize_t get_line(char **buffer, size_t *bufsize, int fd);
 char *str_tok(char *command, const char *delim);
 int tokenize(char *command, char **args);
 int built_ins(char **args);
