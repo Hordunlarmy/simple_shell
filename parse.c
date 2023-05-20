@@ -50,16 +50,23 @@ char *str_tok(char *command, const char *delim)
 int tokenize(char *command, char **args)
 {
 	int i = 0;
-	char *token = str_tok(command, " \n\t\r\a");
+	char *token = strtok(command, " \n\t\r\a");
+	char *trimmed_token;
 
 	while (token != NULL && i < MAXARGS - 1)
 	{
-		if (token[0] == '#')
+		trimmed_token = token;
+		while (*trimmed_token == ' ')
+		{
+			trimmed_token++;
+		}
+
+		if (trimmed_token[0] == '#')
 		{
 			break;
 		}
-		args[i++] = token;
-		token = str_tok(NULL, " \n\t\r\a");
+		args[i++] = trimmed_token;
+		token = strtok(NULL, " \n\t\r\a");
 	}
 	return (i);
 }
