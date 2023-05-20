@@ -52,8 +52,9 @@ int my_cd(char **args);
 int my_setenv(const char *name, const char *value, int overwrite);
 int my_unsetenv(char **args);
 int my_echo(char **args);
-int _strlen(char *s);
-int _strcmp(char *s1, char *s2);
+int _strlen(const char *s);
+int _strcmp(const char *s1,const char *s2);
+char *_strchr(char *s, char c);
 
 
 #endif /* MAIN_H */

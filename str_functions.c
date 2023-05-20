@@ -6,7 +6,7 @@
  * @s: string checked
  * Return: the length of a string.
  */
-int _strlen(char *s)
+int _strlen(const char *s)
 {
 	/* char *s = "My first strlen!"; */
 	int lent;
@@ -23,10 +23,10 @@ int _strlen(char *s)
  * @s2: pointer variable 2
  * Return: result of two strings compared
  */
-int _strcmp(char *s1, char *s2)
+int _strcmp(const char *s1, const char *s2)
 {
-	char *p1 = s1;
-	char *p2 = s2;
+	const char *p1 = s1;
+	const char *p2 = s2;
 	int i = 0;
 
 	while (*(p1 + i) != '\0' && *(p2 + i) != '\0' && p1[i] == p2[i])
@@ -34,4 +34,27 @@ int _strcmp(char *s1, char *s2)
 		i++;
 	}
 	return (p1[i] - p2[i]);
+}
+
+
+/**
+ * _strchr - Entry point
+ * @s: pointer variable
+ * @c: character to be checked
+ * Return: Always 0 (Success)
+ */
+char *_strchr(char *s, char c)
+{
+	char *p = s;
+	char *pp = &c;
+	int i;
+
+	for (i = 0; *(p + i) != '\0'; i++)
+
+		if (*(p + i) == *pp)
+		{
+			return (s + i);
+		}
+
+	return (0);
 }
