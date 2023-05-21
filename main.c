@@ -27,15 +27,8 @@ int main(int argc __attribute__((unused)), char **argv)
 			{
 				write(1, "\n", 1);
 			}
-		}
-		if (line == -1)
-		{
 			write(1, "\n", 1);
 			break;
-		}
-		if (**argv == '\n')
-		{
-			continue;
 		}
 		if (line == 0 || **argv == '\n')
 			continue;
