@@ -8,21 +8,31 @@
  */
 int main(int argc __attribute__((unused)), char **argv)
 {
-	char *shellPrompt = "#cisfun$ ";
+	bool interactive = isatty(STDIN_FILENO);
+	char *shellPrompt = interactive ? "#cisfun$ " : "";
 	size_t n = 0;
+	ssize_t line;
 
-	for (; ;)
+	for (;;)
 	{
-		printf("%s/%s", get_dir(), shellPrompt);
-		fflush(stdout);
-		if ((get_line(argv, &n, stdin)) == -1)
+		if (interactive)
 		{
-			feof(stdin) ? exit(EXIT_SUCCESS) : exit(EXIT_FAILURE);
+			write(STDOUT_FILENO, shellPrompt, 10);
+			fflush(stdout);
 		}
+		line = get_line(argv, &n, STDIN_FILENO);
+		if (line == -1)
+		{
+			if (feof(stdin))
+			{
+				write(1, "\n", 1);
+			}
+			write(1, "\n", 1);
+			break;
+		}
+		if (line == 0 || **argv == '\n')
+			continue;
 		execute(*argv);
 	}
-
-	free(argv);
-
 	return (0);
 }

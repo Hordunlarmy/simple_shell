@@ -11,9 +11,11 @@ int my_env(void)
 
 	while (*env != NULL)
 	{
-		printf("%s\n", *env);
+		write(STDOUT_FILENO, *env, _strlen(*env));
+		write(STDOUT_FILENO, "\n", 1);
 		env++;
 	}
+
 	return (0);
 }
 
@@ -28,9 +30,9 @@ int my_cd(char **args)
 	char *new_dir, *old_dir;
 	char cwd[1024];
 
-	if (args[1] == NULL || strcmp(args[1], "~") == 0)
+	if (args[1] == NULL || _strcmp(args[1], "~") == 0)
 		new_dir = _getenv("HOME");
-	else if (strcmp(args[1], "-") == 0)
+	else if (_strcmp(args[1], "-") == 0)
 		new_dir = _getenv("OLDPWD");
 	else
 		new_dir = args[1];
@@ -74,7 +76,7 @@ int my_cd(char **args)
 int my_setenv(const char *name, const char *value, int overwrite)
 {
 	int i, j;
-	int len = strlen(name) + strlen(value) + 2;
+	int len = _strlen(name) + _strlen(value) + 2;
 	char *env = malloc(len);
 
 	if (env == NULL)
@@ -116,7 +118,7 @@ int my_unsetenv(char **args)
 {
 	int i, j;
 	char *name = args[1];
-	int len = strlen(name);
+	int len = _strlen(name);
 
 	if (args[1] == NULL || args[2] != NULL)
 	{
@@ -126,7 +128,7 @@ int my_unsetenv(char **args)
 
 	for (i = 0; environ[i] != NULL; i++)
 	{
-		if (strncmp(environ[i], name, len) == 0 && environ[i][len] == '=')
+		if (_strncmp(environ[i], name, len) == 0 && environ[i][len] == '=')
 		{
 			for (j = i; environ[j] != NULL; j++)
 			{
@@ -147,23 +149,38 @@ int my_unsetenv(char **args)
  */
 int my_echo(char **args)
 {
-	int pid;
-	int i;
+	int i, pid;
+	char *value;
+	char *var_name;
 
 	for (i = 1; args[i] != NULL && i < MAXARGS - 1; i++)
 	{
-		if (i == 1)
+		if (_strcmp(args[i], "$$") == 0)
 		{
-			if (strcmp(args[i], "$$") == 0)
+			pid = getpid();
+			printf("%d ", pid);
+		}
+		else if (_strcmp(args[i], "$?") == 0)
+			printf("%d ", exit_stat());
+		else if (args[i][0] == '$')
+		{
+			var_name = args[i] + 1;
+			value = _getenv(var_name);
+			if (value != NULL)
 			{
-				pid = getpid();
-				printf("%d ", pid);
-				continue;
+				printf("%s ", value);
+			}
+			else
+			{
+				printf("Variable not found: %s ", args[i]);
 			}
 		}
-		printf("%s ", args[i]);
+		else
+		{
+			printf("%s ", args[i]);
+		}
 	}
-	printf("\n");
 
+	printf("\n");
 	return (0);
 }

@@ -37,17 +37,17 @@ char *_getenv(const char *name)
 	int i = 0;
 	char *envi_ron;
 	char *equals;
-	
+
 	while (environ[i] != NULL)
 	{
 		envi_ron = environ[i];
-		equals = strchr(envi_ron, '=');
-		
+		equals = _strchr(envi_ron, '=');
+
 		*equals = '\0';
-		if (strcmp(envi_ron, name) == 0)
+		if (_strcmp(envi_ron, name) == 0)
 		{
 			*equals = '=';
-			return (environ[i] + strlen(name) + 1);
+			return (environ[i] + _strlen(name) + 1);
 		}
 		*equals = '=';
 		i++;
@@ -58,36 +58,47 @@ char *_getenv(const char *name)
  * get_line - Entry point
  * @buffer: to hold command and arguments
  * @bufsize: size of buffer
- * @stream: input type
+ * @fd: file descriptor of input stream
  * Return: string buffer
  */
-ssize_t get_line(char **buffer, size_t *bufsize, FILE *stream)
+ssize_t get_line(char **buffer, size_t *bufsize, int fd)
 {
+	static char line_buffer[1024];
+	static size_t line_buffer_size = 1024;
+	ssize_t i, read_bytes;
 	size_t len = 0;
 	*bufsize = 1024;
 	*buffer = malloc(*bufsize * sizeof(char));
-	
 	if (!*buffer)
 	{
 		perror("get_line");
 		exit(EXIT_FAILURE);
 	}
-	while (fgets(*buffer, *bufsize, stream) != NULL)
+	while ((read_bytes = read(fd, line_buffer, line_buffer_size)) != 0)
 	{
-		len = strlen(*buffer);
-		if (len > 0 && (*buffer)[len - 1] == '\n')
+		if (read_bytes == -1)
 		{
-			(*buffer)[len - 1] = '\0';
-			return (len);
+			perror("read");
+			exit(EXIT_FAILURE);
 		}
-		if (*bufsize - 1 <= len)
+		for (i = 0; i < read_bytes; i++)
 		{
-			*bufsize *= 2;
-			*buffer = realloc(*buffer, *bufsize * sizeof(char));
-			if (!*buffer)
+			if (line_buffer[i] == '\n')
 			{
-				perror("get_line");
-				exit(EXIT_FAILURE);
+				(*buffer)[len] = '\0';
+				return (len);
+			}
+			(*buffer)[len] = line_buffer[i];
+			len++;
+			if (len >= *bufsize)
+			{
+				*bufsize *= 2;
+				*buffer = realloc(*buffer, *bufsize * sizeof(char));
+				if (!*buffer)
+				{
+					perror("get_line");
+					exit(EXIT_FAILURE);
+				}
 			}
 		}
 	}
