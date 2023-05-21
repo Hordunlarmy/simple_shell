@@ -43,17 +43,17 @@ int _strcmp(const char *s1, const char *s2)
  * @c: character to be checked
  * Return: Always 0 (Success)
  */
-char *_strchr(char *s, char c)
+char *_strchr(const char *s, const char c)
 {
-	char *p = s;
-	char *pp = &c;
+	const char *p = s;
+	const char *pp = &c;
 	int i;
 
 	for (i = 0; *(p + i) != '\0'; i++)
 
 		if (*(p + i) == *pp)
 		{
-			return (s + i);
+			return ((char *)(s + i));
 		}
 
 	return (0);

@@ -10,7 +10,6 @@ char *str_tok(char *command, const char *delim)
 {
 	static char *last_token;
 	char *current_token;
-	const char *d;
 
 	if (command != NULL)
 		last_token = command;
@@ -19,25 +18,25 @@ char *str_tok(char *command, const char *delim)
 		return (NULL);
 
 	current_token = last_token;
+	while (*current_token != '\0' && _strchr(delim, *current_token) != NULL)
+		current_token++;
 
-	for (; *last_token != '\0'; last_token++)
+	if (*current_token == '\0')
 	{
-		d = delim;
-		for (; *d != '\0'; d++)
-		{
-			if (*last_token == *d)
-			{
-				*last_token = '\0';
-				last_token++;
-				if (*last_token != '\0')
-					return (current_token);
-				else
-					return (NULL);
-			}
-		}
+		last_token = NULL;
+		return (NULL);
 	}
 
-	last_token = NULL;
+	last_token = current_token;
+	while (*last_token != '\0' && _strchr(delim, *last_token) == NULL)
+		last_token++;
+
+	if (*last_token != '\0')
+	{
+		*last_token = '\0';
+		last_token++;
+	}
+
 	return (current_token);
 }
 
@@ -65,7 +64,12 @@ int tokenize(char *command, char **args)
 		{
 			break;
 		}
-		args[i++] = trimmed_token;
+
+		if (*trimmed_token != '\0')
+		{
+			args[i++] = trimmed_token;
+		}
+
 		token = str_tok(NULL, " \n\t\r\a");
 	}
 	return (i);

@@ -55,7 +55,7 @@ int my_unsetenv(char **args);
 int my_echo(char **args);
 int _strlen(const char *s);
 int _strcmp(const char *s1,const char *s2);
-char *_strchr(char *s, char c);
+char *_strchr(const char *s, const char c);
 
 
 #endif /* MAIN_H */
