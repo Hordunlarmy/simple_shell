@@ -20,6 +20,7 @@ extern int exit_status;
 
 /** MACROS **/
 #define MAXARGS 128
+#define MAX_PATH_LENGTH 256
 
 
 
@@ -56,6 +57,9 @@ int my_echo(char **args);
 int _strlen(const char *s);
 int _strcmp(const char *s1,const char *s2);
 char *_strchr(const char *s, const char c);
+int run_child(char **args);
+int run_parent(void);
+int exit_stat(void);
 
 
 #endif /* MAIN_H */

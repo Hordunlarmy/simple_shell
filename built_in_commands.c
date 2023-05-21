@@ -161,7 +161,7 @@ int my_echo(char **args)
 			printf("%d ", pid);
 		}
 		else if (strcmp(args[i], "$?") == 0)
-			printf("%d ", exit_status);
+			printf("%d ", exit_stat());
 		else if (args[i][0] == '$')
 		{
 			var_name = args[i] + 1;
