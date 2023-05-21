@@ -60,6 +60,7 @@ char *_strchr(const char *s, const char c);
 int run_child(char **args);
 int run_parent(void);
 int exit_stat(void);
+char *_strdup(const char *str);
 
 
 #endif /* MAIN_H */

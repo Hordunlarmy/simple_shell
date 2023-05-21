@@ -60,9 +60,9 @@ linked_path *link_path(void)
 
 
 	Path = _getenv("PATH");
-	Path_dup = strdup(Path);
+	Path_dup = _strdup(Path);
 	dir = str_tok(Path_dup, ":");
-	current_node->dir = strdup(dir);
+	current_node->dir = _strdup(dir);
 
 	while (dir != NULL)
 	{
@@ -71,7 +71,7 @@ linked_path *link_path(void)
 		{
 			current_node->next = (linked_path *)malloc(sizeof(linked_path));
 			current_node = current_node->next;
-			current_node->dir = strdup(dir);
+			current_node->dir = _strdup(dir);
 		}
 	}
 	current_node->next = NULL;

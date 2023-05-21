@@ -8,7 +8,6 @@
  */
 int _strlen(const char *s)
 {
-	/* char *s = "My first strlen!"; */
 	int lent;
 
 	lent = 0;
@@ -57,4 +56,30 @@ char *_strchr(const char *s, const char c)
 		}
 
 	return (0);
+}
+
+/**
+ * _strdup - Entry point
+ * @str: string to duplicate
+ * Return: Always 0 (Success)
+ */
+char *_strdup(const char *str)
+{
+	int i, len = 0;
+	char *r_value;
+
+	if (str == NULL)
+		return (NULL);
+
+	for (; str[len] != '\0'; len++)
+		;
+
+	r_value = malloc(sizeof(char) * (len + 1));
+	if (r_value == NULL)
+		return (NULL);
+
+	for (i = 0; i <= len; i++)
+		r_value[i] = str[i];
+
+	return (r_value);
 }
