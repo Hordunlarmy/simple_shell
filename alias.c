@@ -10,28 +10,40 @@ int my_alias(char **args, alias *alias_list)
 {
 	printf("entered my_alias function\n");
 	int i = 1;
-	alias *temp = alias_list
-	char *main_command;
-	char *new_command;
+	alias *list_copy = alias_list;
+	char *equals;
 
-	if (strcmp(args[i + 1],"=") == 0)
+	if (args[i] == NULL)
 	{
-		new_command = args[i];
-		main_command = args[i + 2];
-		printf("seperated args sucesfully %s=%s\n", new_command, main_command);
-		create_alias(alias_list, new_command, main_command);
+		while (list_copy)
+		{
+			printf("wants to enter print alias list\n");
+			print_alias_list(list_copy);
+			list_copy = list_copy->next;
+		}
 		return (0);
 	}
-	else if (args[i] == NULL)
+	for (i = 1; args[i] != NULL; i++)
 	{
-		printf("wants to enter print alias list\n");
-		print_alias_list(temp);
-		return (0);
-	}
-	else
-	{
-		printf("invalid command");
-		return (-1);
+		equals = strchr(args[i], '=');
+		list_copy = alias_list;
+		if (equals == NULL)
+		{
+			while (list_copy != NULL)
+			{
+				if (strcmp(args[i], list_copy->main_command) == 0)
+				{
+					print_alias_list(list_copy);
+					break;
+				}
+				list_copy = list_copy->next;
+			}
+		}
+		else
+		{
+			printf("wants to enter create keyvalue_pair function args = %s \n",args[i]);
+			create_keyvalue_pair(list_copy, args[i], equals);
+		}
 	}
 	return (0);
 }
