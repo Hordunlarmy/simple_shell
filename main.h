@@ -10,14 +10,17 @@
 #include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <stdbool.h>
 
 /** Global environment */
 extern char **environ;
+extern int exit_status;
 
 
 
 /** MACROS **/
 #define MAXARGS 128
+#define MAX_PATH_LENGTH 256
 
 
 
@@ -61,7 +64,7 @@ char *_getenv(const char *name);
 linked_path *link_path(void);
 int execute(char *command);
 int execute_with_path(char **args);
-ssize_t get_line(char **buffer, size_t *bufsize, FILE *stream);
+ssize_t get_line(char **buffer, size_t *bufsize, int fd);
 char *str_tok(char *command, const char *delim);
 int tokenize(char *command, char **args);
 int built_ins(char **args);
@@ -75,6 +78,15 @@ alias *add_alias(alias *head, char *new, char *main);
 int print_alias_list(alias *head);
 char *check_alias(char *new);
 int execute_alias(char *main, char **args);
+int _strlen(const char *s);
+int _strcmp(const char *s1,const char *s2);
+char *_strchr(const char *s, const char c);
+int run_child(char **args);
+int run_parent(void);
+int exit_stat(void);
+char *_strdup(const char *str);
+int _strncmp(const char *s1, const char *s2, size_t n);
+>>>>>>> main
 
 
 #endif /* MAIN_H */
