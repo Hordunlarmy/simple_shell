@@ -14,7 +14,7 @@ char *str_tok(char *command, const char *delim)
 	if (command != NULL)
 		last_token = command;
 
-	if (last_token == NULL)
+	if (last_token == NULL || *last_token == '\0')
 		return (NULL);
 
 	current_token = last_token;
