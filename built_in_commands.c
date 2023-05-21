@@ -76,7 +76,7 @@ int my_cd(char **args)
 int my_setenv(const char *name, const char *value, int overwrite)
 {
 	int i, j;
-	int len = strlen(name) + strlen(value) + 2;
+	int len = _strlen(name) + _strlen(value) + 2;
 	char *env = malloc(len);
 
 	if (env == NULL)
@@ -118,7 +118,7 @@ int my_unsetenv(char **args)
 {
 	int i, j;
 	char *name = args[1];
-	int len = strlen(name);
+	int len = _strlen(name);
 
 	if (args[1] == NULL || args[2] != NULL)
 	{
@@ -128,7 +128,7 @@ int my_unsetenv(char **args)
 
 	for (i = 0; environ[i] != NULL; i++)
 	{
-		if (strncmp(environ[i], name, len) == 0 && environ[i][len] == '=')
+		if (_strncmp(environ[i], name, len) == 0 && environ[i][len] == '=')
 		{
 			for (j = i; environ[j] != NULL; j++)
 			{
@@ -155,12 +155,12 @@ int my_echo(char **args)
 
 	for (i = 1; args[i] != NULL && i < MAXARGS - 1; i++)
 	{
-		if (strcmp(args[i], "$$") == 0)
+		if (_strcmp(args[i], "$$") == 0)
 		{
 			pid = getpid();
 			printf("%d ", pid);
 		}
-		else if (strcmp(args[i], "$?") == 0)
+		else if (_strcmp(args[i], "$?") == 0)
 			printf("%d ", exit_stat());
 		else if (args[i][0] == '$')
 		{

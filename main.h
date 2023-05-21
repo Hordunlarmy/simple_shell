@@ -61,6 +61,7 @@ int run_child(char **args);
 int run_parent(void);
 int exit_stat(void);
 char *_strdup(const char *str);
+int _strncmp(const char *s1, const char *s2, size_t n);
 
 
 #endif /* MAIN_H */
