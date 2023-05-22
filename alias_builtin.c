@@ -38,11 +38,11 @@ int execute_alias(char *main, char **args)
  * @main: is the name fo the main command
  * return: the new node
  */
-int create_keyvalue_pair(alias *alias_list, char *name, char *equals)
+int create_keyvalue_pair(alias **alias_list, char *name, char *equals)
 {
 	printf("entered create alias function\n");
 	char keyvalue_pair[100];
-	alias *list_copy = alias_list;
+	alias *list_copy = *alias_list;
 	int i, b = 0, j,  value_length;
 	char *main_command, *new_command = malloc((strlen(name) + 1) * sizeof(char));
 
@@ -72,7 +72,8 @@ int create_keyvalue_pair(alias *alias_list, char *name, char *equals)
 	}
 	main_command[j] = '\0';
 
-	alias_list = add_alias(list_copy, new_command, main_command);
+	printf("before addalias name = %s and value = %s\n", new_command, main_command);
+	*alias_list = add_alias(&list_copy, new_command, main_command);
 
 	return (0);
 }
@@ -83,35 +84,45 @@ int create_keyvalue_pair(alias *alias_list, char *name, char *equals)
  * @head: is a pointer to a list of aliases
  * return: the head of the list
  */
-alias *add_alias(alias *head, char *new, char *main)
+alias *add_alias(alias **head, char *new, char *main)
 {
 	printf("enteretr add_alias function\n");
-	alias *temp = head;
 	alias *new_node = malloc(sizeof(alias) + 1);
-	
+	alias *temp;
 	new_node->main_command = strdup(main);
 	new_node->new_command = strdup(new);
 	new_node->next = NULL;
 
-	if (head == NULL)
+	if (*head == NULL)
 	{
-		 head = new_node;
+		 *head = new_node;
 	}
 	else
 	{
+		temp = *head;
 		while (temp->next != NULL)
 		{
 			if (strcmp(new, temp->new_command) == 0)
 			{
 				free(temp->main_command);
 				temp->main_command = strdup(main);
-				break;
+				free(new_node->main_command);
+				free(new_node->new_command);
+				free(new_node);
+				return (*head);
 			}
 			temp = temp->next;
-		} temp->next = new_node;
+		}
+		temp->next = new_node;
 	}
 	printf("added alias to list successfully\n");
-	return (head);
+
+	while (temp != NULL)
+	{
+		printf("alias is %s='%s'\n", temp->new_command, temp->main_command);
+		temp = temp->next;
+	}
+	return (*head);
 }
 /**
  * print_alias_list - is a function that prints out the alias list

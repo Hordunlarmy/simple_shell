@@ -6,27 +6,30 @@
  * @args: ths is a  list of commands
  * Return: 0
  */
-int my_alias(char **args, alias *alias_list)
+int my_alias(char **args, alias **alias_list)
 {
 	printf("entered my_alias function\n");
 	int i = 1;
-	alias *list_copy = alias_list;
+	alias *list_copy = *alias_list;
 	char *equals;
 
 	if (args[i] == NULL)
 	{
-		while (list_copy)
+		if (list_copy == NULL)
+		{
+			printf("NULL\n");
+		}
+		else 
 		{
 			printf("wants to enter print alias list\n");
 			print_alias_list(list_copy);
-			list_copy = list_copy->next;
 		}
 		return (0);
 	}
 	for (i = 1; args[i] != NULL; i++)
 	{
 		equals = strchr(args[i], '=');
-		list_copy = alias_list;
+		list_copy = *alias_list;
 		if (equals == NULL)
 		{
 			while (list_copy != NULL)
@@ -42,7 +45,7 @@ int my_alias(char **args, alias *alias_list)
 		else
 		{
 			printf("wants to enter create keyvalue_pair function args = %s \n",args[i]);
-			create_keyvalue_pair(list_copy, args[i], equals);
+			create_keyvalue_pair(&list_copy, args[i], equals);
 		}
 	}
 	return (0);

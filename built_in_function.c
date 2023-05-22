@@ -48,7 +48,8 @@ int built_ins(char **args)
 	}
 	if (strcmp(args[0],"alias") == 0)
 	{
-		my_alias(args, alias_list);
+		my_alias(args, &alias_list);
+		return (1);
 	}
 	return (0);
 }

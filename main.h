@@ -56,7 +56,7 @@ alias *alias_list;
 
 
 
-int my_alias(char **args, alias *alias_list);
+int my_alias(char **args, alias **alias_list);
 char *get_dir();
 int _setenv(const char *name, const char *value, int overwrite);
 int check_path(char **args);
@@ -73,8 +73,8 @@ int my_cd(char **args);
 int my_setenv(const char *name, const char *value, int overwrite);
 int my_unsetenv(char **args);
 int my_echo(char **args);
-int create_keyvalue_pair(alias *alias_list, char *args, char *equals);
-alias *add_alias(alias *head, char *new, char *main);
+int create_keyvalue_pair(alias **alias_list, char *args, char *equals);
+alias *add_alias(alias **head, char *new, char *main);
 int print_alias_list(alias *head);
 char *check_alias(char *new);
 int execute_alias(char *main, char **args);
@@ -86,7 +86,6 @@ int run_parent(void);
 int exit_stat(void);
 char *_strdup(const char *str);
 int _strncmp(const char *s1, const char *s2, size_t n);
->>>>>>> main
 
 
 #endif /* MAIN_H */
