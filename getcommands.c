@@ -71,6 +71,7 @@ ssize_t get_line(char **buffer, size_t *bufsize, int fd)
 	*buffer = malloc(*bufsize * sizeof(char));
 	if (!*buffer)
 	{
+		free(*buffer);
 		perror("get_line");
 		exit(EXIT_FAILURE);
 	}
