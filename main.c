@@ -33,6 +33,8 @@ int main(int argc __attribute__((unused)), char **argv)
 		if (line == 0 || **argv == '\n')
 			continue;
 		execute(*argv);
+		_freeargs(argv);
 	}
+
 	return (0);
 }

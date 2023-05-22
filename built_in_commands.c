@@ -1,5 +1,4 @@
 #include "main.h"
-
 /**
  * my_env - Entry point
  *
@@ -76,10 +75,12 @@ int my_cd(char **args)
 int my_setenv(const char *name, const char *value, int overwrite)
 {
 	int i, j;
+	char *env_ptr;
 	int len = _strlen(name) + _strlen(value) + 2;
-	char *env = malloc(len);
+	char *env_save = malloc(len);
+	env_ptr = env_save;
 
-	if (env == NULL)
+	if (env_save == NULL)
 	{
 		fprintf(stderr, "Error: Memory allocation failed\n");
 		return (1);
@@ -87,21 +88,21 @@ int my_setenv(const char *name, const char *value, int overwrite)
 
 	for (i = 0; name[i] != '\0'; i++)
 	{
-		env[i] = name[i];
+		env_save[i] = name[i];
 	}
-	env[i] = '=';
+	env_save[i] = '=';
 
 	for (j = 0; value[j] != '\0'; j++)
 	{
-		env[i + j + 1] = value[j];
+		env_save[i + j + 1] = value[j];
 	}
-	env[i + j + 1] = '\0';
+	env_save[i + j + 1] = '\0';
 
 	if (overwrite == 0 && _getenv(name) != NULL)
 	{
 		return (0);
 	}
-	if (putenv(env) != 0)
+	if (putenv(env_save) != 0)
 	{
 		fprintf(stderr, "Error: Setting environment variable failed\n");
 		return (1);

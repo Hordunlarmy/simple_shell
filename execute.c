@@ -14,7 +14,7 @@ int execute(char *command)
 	i = tokenize(command, args);
 	args[i] = NULL;
 
-	if (built_ins(args))
+	if (built_ins(args) || built_ins2(args))
 		return (0);
 	if (access(args[0], X_OK) == -1)
 	{
@@ -35,7 +35,7 @@ int execute(char *command)
 	if (pid != 0)
 		run_parent();
 
-	if (pid == 0)
+	if (pid == 0 && args[0][0] != '\0')
 	{
 		run_child(args);
 	}
