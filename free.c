@@ -1,27 +1,31 @@
 #include "main.h"
 /**
- * free_args - is a function that frees the arguments
+ * _freeargs - is a function that frees the arguments
  * @args: this is the tokenized arguments
  * Return:void
  */
 void  _freeargs(char **args)
 {
 	int index;
+	int len = 0;
 
-	for (index = 0; args[index] != NUL || args[index + 1] != NULL; index++)
+	while (args[len] != NULL)
+		len++;
+
+	for (index = 0; index < len; index++)
 	{
 		free(args[index]);
 	}
 }
 
 /**
- * free_path - is a function that frees the path
+ * _freepath - is a function that frees the path
  * @path: is a function that frees the path
  * Return:void
  */
 void _freepath(linked_path *path)
 {
-	linked *temp;
+	linked_path *temp;
 
 	while (temp != NULL)
 	{

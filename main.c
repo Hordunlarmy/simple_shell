@@ -11,7 +11,6 @@ int main(int argc __attribute__((unused)), char **argv)
 	bool interactive = isatty(STDIN_FILENO);
 	char *shellPrompt = interactive ? "#cisfun$ " : "";
 	size_t n = 0;
-	alias *alias_list;
 	ssize_t line;
 
 	for (;;)
@@ -34,6 +33,8 @@ int main(int argc __attribute__((unused)), char **argv)
 		if (line == 0 || **argv == '\n')
 			continue;
 		execute(*argv);
+		_freeargs(argv);
 	}
+
 	return (0);
 }

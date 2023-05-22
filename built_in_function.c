@@ -1,5 +1,4 @@
 #include "main.h"
-
 /**
  * built_ins - Entry point
  * @args: command and arguments
@@ -8,6 +7,7 @@
 int built_ins(char **args)
 {
 	int exit_status;
+	char *env_ptr;
 
 	if (_strcmp(args[0], "exit") == 0)
 	{
@@ -16,6 +16,8 @@ int built_ins(char **args)
 			exit_status = atoi(args[1]);
 			exit(exit_status);
 		}
+		_freeargs(args);
+		free(env_ptr);
 		exit(0);
 	}
 	if (args[0] == NULL)
@@ -45,11 +47,21 @@ int built_ins(char **args)
 	{
 		my_echo(args);
 		return (1);
-	}
-	if (strcmp(args[0],"alias") == 0)
+	} return (0);
+}
+/**
+ * built_ins2 - Entry point
+ * @args: command and arguments
+ * Return: Always 0 (Success)
+ */
+int built_ins2(char **args)
+{
+
+	if (_strcmp(args[0], "alias") == 0)
 	{
-		my_alias(args, &alias_list);
+		my_alias(args);
 		return (1);
 	}
+
 	return (0);
 }

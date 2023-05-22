@@ -1,25 +1,21 @@
-#include "main.h" 
+#include "main.h"
 /**
  * my_alias - is a function that handles the command
  * if it is alias
- *
  * @args: ths is a  list of commands
  * Return: 0
  */
-int my_alias(char **args, alias **alias_list)
+int my_alias(char **args)
 {
-	printf("entered my_alias function\n");
 	int i = 1;
-	alias *list_copy = *alias_list;
+	alias *list_copy = get_alias_list();
 	char *equals;
 
 	if (args[i] == NULL)
 	{
 		if (list_copy == NULL)
-		{
 			printf("NULL\n");
-		}
-		else 
+		else
 		{
 			printf("wants to enter print alias list\n");
 			print_alias_list(list_copy);
@@ -29,7 +25,7 @@ int my_alias(char **args, alias **alias_list)
 	for (i = 1; args[i] != NULL; i++)
 	{
 		equals = strchr(args[i], '=');
-		list_copy = *alias_list;
+		list_copy = get_alias_list();
 		if (equals == NULL)
 		{
 			while (list_copy != NULL)
@@ -44,9 +40,20 @@ int my_alias(char **args, alias **alias_list)
 		}
 		else
 		{
-			printf("wants to enter create keyvalue_pair function args = %s \n",args[i]);
+			printf("create keyvalue_pair function args = %s \n", args[i]);
 			create_keyvalue_pair(&list_copy, args[i], equals);
 		}
 	}
 	return (0);
 }
+/**
+ * get_alias - is a function that returns the alias list
+ * Return:the alias list
+ */
+alias *get_alias_list(void)
+{
+	alias *alias_list = NULL;
+
+	return (alias_list);
+}
+

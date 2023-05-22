@@ -14,7 +14,7 @@ int execute(char *command)
 	i = tokenize(command, args);
 	args[i] = NULL;
 
-	if (built_ins(args))
+	if (built_ins(args) || built_ins2(args))
 		return (0);
 	if (access(args[0], X_OK) == -1)
 	{

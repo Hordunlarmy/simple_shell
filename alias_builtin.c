@@ -1,12 +1,12 @@
 #include "main.h"
 /**
  * check_alias - is a function that check if an alias exist
- * @args: is a list of arguments
- * return: Name of alias if success or NULL if not
+ * @new: is a list of arguments
+ * Return: Name of alias if success or NULL if not
  */
 char *check_alias(char *new)
 {
-	alias *temp = alias_list;
+	alias *temp = get_alias_list();
 
 	while (temp != NULL)
 	{
@@ -19,9 +19,10 @@ char *check_alias(char *new)
 	return (NULL);
 }
 /**
- * check_alias - is a function that check if an alias exist
+ * execute_alias - is a function that check if an alias exist
  * @args: is a list of arguments
- * return: Name of alias if success or NULL if not
+ * @main: is the value
+ * Return: Name of alias if success or NULL if not
  */
 int execute_alias(char *main, char **args)
 {
@@ -33,36 +34,33 @@ int execute_alias(char *main, char **args)
 	return (0);
 }
 /**
- * create_alias - is a function that creates an alias
- * @new: is the name of the new command
- * @main: is the name fo the main command
- * return: the new node
+ * create_keyvalue_pair - is a function that creates an alias
+ * @name: is the the argument to be initialized into the name_command
+ * @alias_list: is a pointer to the alias list
+ * @equals: is a pointer to the '=' in the args
+ * Return: the new node
  */
 int create_keyvalue_pair(alias **alias_list, char *name, char *equals)
 {
-	printf("entered create alias function\n");
-	char keyvalue_pair[100];
 	alias *list_copy = *alias_list;
 	int i, b = 0, j,  value_length;
 	char *main_command, *new_command = malloc((strlen(name) + 1) * sizeof(char));
 
-	while(name[b] != '=')
+	while (name[b] != '=')
 	{
 		new_command[b] = name[b];
 		b++;
 	}
-	
 
-	printf("left equals while loop now initializing equals name == %s and equals == %s \n", new_command, equals);
 	*equals = '\0';
 	equals = equals + 1;
-	
-	printf("now allocating memory for value_command and equals is == %s\n", equals);
+
+	printf("now allocating memory for value_command equals = %s\n", equals);
 	value_length = strlen(equals) - strspn(equals, "'\"");
 	main_command = malloc(sizeof(char) * (value_length + 1));
-	
+
 	printf("now entering initialization loop\n");
-	for (i = 0, j = 0; equals[i] !='\0'; i++)
+	for (i = 0, j = 0; equals[i] != '\0'; i++)
 	{
 		if (equals[i] != '\'' && equals[i] != '"')
 		{
@@ -72,7 +70,7 @@ int create_keyvalue_pair(alias **alias_list, char *name, char *equals)
 	}
 	main_command[j] = '\0';
 
-	printf("before addalias name = %s and value = %s\n", new_command, main_command);
+	printf("before add name = %s and value = %s\n", new_command, main_command);
 	*alias_list = add_alias(&list_copy, new_command, main_command);
 
 	return (0);
@@ -82,20 +80,23 @@ int create_keyvalue_pair(alias **alias_list, char *name, char *equals)
  * @new: is the name of the new command
  * @main: is the name fo the main command
  * @head: is a pointer to a list of aliases
- * return: the head of the list
+ * Return: the head of the list
  */
 alias *add_alias(alias **head, char *new, char *main)
 {
-	printf("enteretr add_alias function\n");
-	alias *new_node = malloc(sizeof(alias) + 1);
+	alias *new_node = NULL;
 	alias *temp;
+
+	new_node->main_command = malloc(sizeof(char) * 50);
+	new_node->new_command = malloc(sizeof(char) * 50);
+
 	new_node->main_command = strdup(main);
 	new_node->new_command = strdup(new);
 	new_node->next = NULL;
 
 	if (*head == NULL)
 	{
-		 *head = new_node;
+		*head = new_node;
 	}
 	else
 	{
@@ -108,7 +109,6 @@ alias *add_alias(alias **head, char *new, char *main)
 				temp->main_command = strdup(main);
 				free(new_node->main_command);
 				free(new_node->new_command);
-				free(new_node);
 				return (*head);
 			}
 			temp = temp->next;
@@ -127,11 +127,10 @@ alias *add_alias(alias **head, char *new, char *main)
 /**
  * print_alias_list - is a function that prints out the alias list
  * @head: is a pointer to a list of aliases
- * return: void
+ * Return: void
  */
 int print_alias_list(alias *head)
 {
-	printf("entered print alias funciton\n");
 	alias *temp = head;
 
 	while (temp != NULL)
