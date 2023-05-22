@@ -1,8 +1,0 @@
-#!/bin/bash
-ls
-cd
-ls -l -a
-cd -
-env
-echo $?
-echo $$

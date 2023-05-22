@@ -2,9 +2,10 @@
 /**
  * execute - Entry point
  * @command: command passed
+ * @line_num: to track commands
  * Return: id of fork
  */
-int execute(char *command)
+int execute(char *command, int line_num)
 {
 	char *args[MAXARGS];
 	char command_path[MAX_PATH_LENGTH];
@@ -21,7 +22,7 @@ int execute(char *command)
 		sprintf(command_path, "/bin/%s", args[0]);
 		if (access(command_path, X_OK) == -1)
 		{
-			fprintf(stderr, "%s: No such file or directory\n", args[0]);
+			print_error(args[0], "not found", line_num);
 			return (0);
 		}
 		args[0] = command_path;
@@ -55,7 +56,7 @@ int run_child(char **args)
 	{
 		if (execve(args[0], args, environ) == -1)
 		{
-			fprintf(stderr, "%s: No such file or directory\n", args[0]);
+			perror(args[0]);
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -65,7 +66,7 @@ int run_child(char **args)
 	}
 	else
 	{
-		fprintf(stderr, "%s: No such file or directory\n", args[0]);
+		perror(args[0]);
 		exit(EXIT_FAILURE);
 	}
 	return (0);
