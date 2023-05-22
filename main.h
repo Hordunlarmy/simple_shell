@@ -55,7 +55,9 @@ typedef struct alias
 alias *alias_list;
 
 
-
+void _freeenv(void);
+void  _freeargs(char **args);
+void _freepath(linked_path *path);
 int my_alias(char **args, alias **alias_list);
 char *get_dir();
 int _setenv(const char *name, const char *value, int overwrite);
