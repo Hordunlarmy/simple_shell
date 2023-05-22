@@ -15,7 +15,6 @@
 /** Global environment */
 extern char **environ;
 extern int exit_status;
-extern char *env_ptr;
 
 
 /** MACROS **/

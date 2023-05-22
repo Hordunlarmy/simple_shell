@@ -75,10 +75,8 @@ int my_cd(char **args)
 int my_setenv(const char *name, const char *value, int overwrite)
 {
 	int i, j;
-	char *env_ptr;
 	int len = _strlen(name) + _strlen(value) + 2;
 	char *env_save = malloc(len);
-	env_ptr = env_save;
 
 	if (env_save == NULL)
 	{
