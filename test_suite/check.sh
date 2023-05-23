@@ -208,6 +208,13 @@ echo "$command1" >1a2b3c4d5e6f7g8h9i
 echo "$command2" >1a2b3c4d5e6f7g8h9b
 run_check "environment variable expansion"
 
+######### case 20
+command1=$(echo "echo $$HOME" | ./hsh 2>&1)
+command2=$(echo "echo $$HOME" | sh 2>&1)
+echo "$command1" >1a2b3c4d5e6f7g8h9i
+echo "$command2" >1a2b3c4d5e6f7g8h9b
+run_check "echo out ppid and a string"
+
 ######### case 31
 command1=$(echo "cat test_ls_2" | ./hsh 2>&1)
 command2=$(echo "cat test_ls_2" | sh 2>&1)
