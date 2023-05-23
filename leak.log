@@ -1,6 +1,9 @@
 ┌─────────┤ LEAKS LOG ├─────────┐
-│ Total leaks found:          0 │
-│ Total leaks size:           0 │
+│ Total leaks found:          1 │
+│ Total leaks size:           7 │
 ├───────────────────────────────┤
-│   your code is leaks free!!   │
-└───────────────────────────────┘
+│ address:       0x55b1ab199cf0 │
+│ size (bytes):               7 │
+│ file:     built_in_commands.c │
+│ line:                      81 │
+└───────────────────────────────┘└───────────────────────────────┘
