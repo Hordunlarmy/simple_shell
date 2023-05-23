@@ -112,6 +112,7 @@ int my_setenv(const char *name, const char *value, int overwrite)
 		perror("Setting environment variable failed");
 		return (1);
 	}
+	free(env_save);
 	return (0);
 }
 
