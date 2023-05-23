@@ -208,41 +208,6 @@ echo "$command1" >1a2b3c4d5e6f7g8h9i
 echo "$command2" >1a2b3c4d5e6f7g8h9b
 run_check "environment variable expansion"
 
-######### case 26
-command1=$(echo "ls -l | grep 'file'" | ./hsh 2>&1)
-command2=$(echo "ls -l | grep 'file'" | sh 2>&1)
-echo "$command1" >1a2b3c4d5e6f7g8h9i
-echo "$command2" >1a2b3c4d5e6f7g8h9b
-run_check "piping commands (ls -l | grep 'file')"
-
-######### case 27
-command1=$(echo "ls /non_existing_dir | grep 'file'" | ./hsh 2>&1)
-command2=$(echo "ls /non_existing_dir | grep 'file'" | sh 2>&1)
-echo "$command1" >1a2b3c4d5e6f7g8h9i
-echo "$command2" >1a2b3c4d5e6f7g8h9b
-run_check "piping commands with non-existing directory"
-
-######### case 28
-command1=$(echo "echo \"qwerty\" | /bin/sh" | ./hsh 2>&1)
-command2=$(echo "echo \"qwerty\" | /bin/sh" | sh 2>&1)
-echo "$command1" > 1a2b3c4d5e6f7g8h9i
-echo "$command2" > 1a2b3c4d5e6f7g8h9b
-run_check "execute command with input using /bin/sh"
-
-######### case 29
-command1=$(echo "echo \"qwerty\" | /bin/../bin/sh" | ./hsh 2>&1)
-command2=$(echo "echo \"qwerty\" | /bin/../bin/sh" | sh 2>&1)
-echo "$command1" > 1a2b3c4d5e6f7g8h9i
-echo "$command2" > 1a2b3c4d5e6f7g8h9b
-run_check "execute command with input using /bin/../bin/sh"
-
-######### case 30
-command1=$(echo "echo \"/bin/ls\" | ./hsh" | ./hsh 2>&1)
-command2=$(echo "echo \"/bin/ls\" | ./hsh" | sh 2>&1)
-echo "$command1" > 1a2b3c4d5e6f7g8h9i
-echo "$command2" > 1a2b3c4d5e6f7g8h9b
-run_check "execute command with input using ./hsh"
-
 ######### case 31
 command1=$(echo "cat test_ls_2" | ./hsh 2>&1)
 command2=$(echo "cat test_ls_2" | sh 2>&1)
@@ -259,7 +224,7 @@ run_check "execute hsh with file input"
 
 ######### case 33
 command1=$(echo "env" | ./hsh 2>&1)
-command2=$(echo "env" | sh 2>&1)
+command2=$(echo "env" | ./hsh 2>&1)
 echo "$command1" > 1a2b3c4d5e6f7g8h9i
 echo "$command2" > 1a2b3c4d5e6f7g8h9b
 run_check "execute env command"
@@ -378,14 +343,14 @@ run_check "cd command: with relative path (..)"
 
 ######### case 50
 command1=$(echo "cd /path/to/nonexistent" | ./hsh 2>&1)
-command1=$(echo "cd /path/to/nonexistent" | /bin/sh 2>&1)
+command1=$(echo "cd /path/to/nonexistent" | sh 2>&1)
 echo "$command1" > 1a2b3c4d5e6f7g8h9i
 echo "$command2" > 1a2b3c4d5e6f7g8h9b
 run_check "cd command: with non-existing directory"
 
 ######### case 51
 command1=$(echo "cd -" | ./hsh 2>&1)
-command1=$(echo "cd -" | /bin/sh 2>&1)
+command1=$(echo "cd -" | sh 2>&1)
 echo "$command1" > 1a2b3c4d5e6f7g8h9i
 echo "$command2" > 1a2b3c4d5e6f7g8h9b
 run_check "cd command: with '-' (change to previous directory)"

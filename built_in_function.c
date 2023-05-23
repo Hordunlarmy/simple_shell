@@ -2,9 +2,10 @@
 /**
  * built_ins - Entry point
  * @args: command and arguments
+ * @line_num: execution count
  * Return: Always 0 (Success)
  */
-int built_ins(char **args)
+int built_ins(char **args, int line_num)
 {
 	int exit_status;
 
@@ -20,7 +21,6 @@ int built_ins(char **args)
 	}
 	if (args[0] == NULL)
 		return (1);
-
 	if (_strcmp(args[0], "env") == 0)
 	{
 		my_env();
@@ -28,7 +28,7 @@ int built_ins(char **args)
 	}
 	if (_strcmp(args[0], "cd") == 0)
 	{
-		my_cd(args);
+		my_cd(args, line_num);
 		return (1);
 	}
 	if (_strcmp(args[0], "setenv") == 0)
@@ -41,23 +41,26 @@ int built_ins(char **args)
 		my_unsetenv(args);
 		return (1);
 	}
-	if (_strcmp(args[0], "echo") == 0)
-	{
-		my_echo(args);
-		return (1);
-	} return (0);
+	return (0);
 }
 /**
  * built_ins2 - Entry point
  * @args: command and arguments
+ * @line_num: execution count
  * Return: Always 0 (Success)
  */
-int built_ins2(char **args)
+int built_ins2(char **args, int line_num)
 {
-
 	if (_strcmp(args[0], "alias") == 0)
 	{
 		my_alias(args);
+		return (1);
+	}
+
+	if (_strcmp(args[0], "echo") == 0)
+	{
+		my_echo(args);
+		write(STDOUT_FILENO, "\n", 1);
 		return (1);
 	}
 

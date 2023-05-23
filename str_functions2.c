@@ -1,39 +1,57 @@
 #include "main.h"
 
+
 /**
- * _itoa - Entry point
- * @value: integer to be converted
- * Return: string converted from integer
+ * _strcat - Entry point
+ * @dest: pointer variable 1
+ * @src: pointer variable 2
+ * Return: two strings concatenated)
  */
-char *_itoa(int value)
+char *_strcat(char *dest, const char *src)
 {
-	int i, len = 0;
-	int temp = value;
-	char *str = (char *)malloc((len + 1) * sizeof(char));
+	char *p = dest;
 
-	while (temp != 0)
+	while (*p)
 	{
-		len++;
-		temp /= 10;
+		p++;
+	}
+	while (*src)
+	{
+		*p++ = *src++;
+	}
+	*p = '\0';
+
+	return (dest);
+}
+
+
+/**
+ * _strcpy - Entry point
+ * @dest: pointer variable 1
+ * @src: pointer variable 2
+ * Return: pointer to dest
+ */
+char *_strcpy(char *dest, const char *src)
+{
+	char *p;
+
+	while (*src == ' ')
+	{
+		src++;
 	}
 
-	if (value == 0)
+	p = dest;
+	while (*src)
 	{
-		len = 1;
+		*p++ = *src++;
 	}
 
-	if (str == NULL)
+	while (p > dest && *(p - 1) == ' ')
 	{
-		return (NULL);
+		p--;
 	}
 
-	for (i = len - 1; i >= 0; i--)
-	{
-		str[i] = '0' + (value % 10);
-		value /= 10;
-	}
+	*p = '\0';
 
-	str[len] = '\0';
-
-	return (str);
+	return (dest);
 }
