@@ -80,6 +80,11 @@ int my_setenv(const char *name, const char *value, int overwrite)
 	int len = _strlen(name) + _strlen(value) + 2;
 	char *env_save = malloc(len);
 
+	if (name == NULL || value == NULL)
+	{
+		perror("Invalid arguments");
+		return (1);
+	}
 	if (env_save == NULL)
 	{
 		perror("Memory allocation failed");
