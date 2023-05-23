@@ -95,6 +95,7 @@ char *_strchr(const char *s, const char c);
 char *_strdup(const char *str);
 int _strncmp(const char *s1, const char *s2, size_t n);
 void print_error(const char *cmd, const char *msg, int line_num);
+char *_itoa(int value);
 
 
 #endif /* MAIN_H */

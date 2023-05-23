@@ -1,61 +1,39 @@
 #include "main.h"
-#include <stdbool.h>
 
-void reverse(char str[], int length)
+/**
+ * _itoa - Entry point
+ * @value: integer to be converted
+ * Return: string converted from integer
+ */
+char *_itoa(int value)
 {
-	int start = 0;
-	int end = length - 1;
+	int i, len = 0;
+	int temp = value;
+	char *str = (char *)malloc((len + 1) * sizeof(char));
 
-	while (start < end)
+	while (temp != 0)
 	{
-		char temp = str[start];
-
-		str[start] = str[end];
-		str[end] = temp;
-		start++;
-		end--;
-	}
-}
-
-char *_itoa(int num, char *str, int base)
-{
-	bool is_negative = false;
-	int i = 0;
-
-	if (base < 2 || base > 36)
-	{
-		*str = '\0';
-		return (str);
+		len++;
+		temp /= 10;
 	}
 
-	if (num < 0)
+	if (value == 0)
 	{
-		if (base == 10)
-		{
-			is_negative = true;
-			num = -num;
-		}
-		else
-		{
-			*str = '\0';
-			return (str);
-		}
+		len = 1;
 	}
 
-	while (num != 0)
+	if (str == NULL)
 	{
-		int rem = num % base;
-
-		str[i++] = (rem > 9) ? (rem - 10) + 'a' : rem + '0';
-		num /= base;
+		return (NULL);
 	}
 
-	if (is_negative)
-		str[i++] = '-';
+	for (i = len - 1; i >= 0; i--)
+	{
+		str[i] = '0' + (value % 10);
+		value /= 10;
+	}
 
-	str[i] = '\0';
-
-	reverse(str, i);
+	str[len] = '\0';
 
 	return (str);
 }
