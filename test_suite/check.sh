@@ -322,28 +322,28 @@ run_check "execute echo \$SHELL command"
 
 ######### case 42
 command1=$(echo "setenv VAR1 value1" | ./hsh 2>&1)
-command2=$(echo "setenv VAR1 value1" | sh 2>&1)
+command2=$(echo "setenv VAR1 value1" | env -i ./hsh 2>&1)
 echo "$command1" > 1a2b3c4d5e6f7g8h9i
 echo "$command2" > 1a2b3c4d5e6f7g8h9b
 run_check "setenv command: create a new variable"
 
 ######### case 43
-command1=$(echo "setenv VAR1 value2" | ./hsh 2>&1)
-command2=$(echo "setenv VAR1 value2" | sh 2>&1)
+command1=$(echo "setenv VAR1 value1" | ./hsh 2>&1)
+command2=$(echo "setenv VAR1 value2" | ./hsh 2>&1)
 echo "$command1" > 1a2b3c4d5e6f7g8h9i
 echo "$command2" > 1a2b3c4d5e6f7g8h9b
 run_check "setenv command: modify an existing variable"
 
 ######### case 44
-command1=$(echo "unsetenv VAR1" | ./hsh 2>&1)
-command2=$(echo "unsetenv VAR1" | sh 2>&1)
+command1=$(echo "setenv VAR1 value1" | ./hsh 2>&1)
+command2=$(echo "unsetenv VAR1" | ./hsh 2>&1)
 echo "$command1" > 1a2b3c4d5e6f7g8h9i
 echo "$command2" > 1a2b3c4d5e6f7g8h9b
 run_check "unsetenv command: remove an existing variable"
 
 ######### case 45
 command1=$(echo "unsetenv VAR1" | ./hsh 2>&1)
-command2=$(echo "unsetenv VAR1" | sh 2>&1)
+command2=$(echo "unsetenv VAR1" | env -i ./hsh 2>&1)
 echo "$command1" > 1a2b3c4d5e6f7g8h9i
 echo "$command2" > 1a2b3c4d5e6f7g8h9b
 run_check "unsetenv command: remove a non-existing variable"
