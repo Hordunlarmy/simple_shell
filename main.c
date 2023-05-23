@@ -8,7 +8,6 @@
  */
 int main(int argc __attribute__((unused)), char **argv)
 {
-	atexit(leak_report);
 	bool interactive = isatty(STDIN_FILENO);
 	char *shellPrompt = interactive ? "#cisfun$ " : "";
 	size_t n = 0;
