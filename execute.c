@@ -19,13 +19,13 @@ int execute(char *command, int line_num)
 		return (0);
 	if (access(args[0], X_OK) == -1)
 	{
-		sprintf(command_path, "/bin/%s", args[0]);
+		strcpy(command_path, "/bin/");
+		strcat(command_path, args[0]);
 		if (access(command_path, X_OK) == -1)
 		{
 			print_error(args[0], "not found", line_num);
 			return (0);
 		}
-		args[0] = command_path;
 	}
 
 	pid = fork();
