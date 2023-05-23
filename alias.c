@@ -56,4 +56,3 @@ alias *get_alias_list(void)
 
 	return (alias_list);
 }
-
