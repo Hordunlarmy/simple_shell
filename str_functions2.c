@@ -15,9 +15,12 @@ char *_strcat(char *dest, const char *src)
 	{
 		p++;
 	}
-	while (*src)
+	if (src)
 	{
-		*p++ = *src++;
+		while (*src)
+		{
+			*p++ = *src++;
+		}
 	}
 	*p = '\0';
 
