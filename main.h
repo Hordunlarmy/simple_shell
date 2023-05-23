@@ -100,6 +100,9 @@ char *_itoa(int value);
 char *cd_error(char **args);
 char *_strcat(char *dest, const char *src);
 char *_strcpy(char *dest, const char *src);
+int echo_ppid(int printed_chars);
+int echo_exit(int printed_chars);
+int echo_env(int printed_chars, char **args, int i);
 
 
 #endif /* MAIN_H */

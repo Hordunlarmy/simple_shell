@@ -49,7 +49,7 @@ int built_ins(char **args, int line_num)
  * @line_num: execution count
  * Return: Always 0 (Success)
  */
-int built_ins2(char **args, int line_num)
+int built_ins2(char **args, int line_num __attribute__ ((unused)))
 {
 	if (_strcmp(args[0], "alias") == 0)
 	{

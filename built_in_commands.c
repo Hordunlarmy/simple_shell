@@ -42,7 +42,7 @@ int my_cd(char **args, int line_num)
 
 	if (my_setenv("OLDPWD", old_dir, 1) != 0)
 	{
-		fprintf(stderr, "Error: Could not set OLDPWD environment variable\n");
+		perror("Could not set OLDPWD environment variable");
 		return (1);
 	}
 
@@ -54,12 +54,12 @@ int my_cd(char **args, int line_num)
 
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 	{
-		fprintf(stderr, "Error: Could not get current directory\n");
+		perror("Could not get current directory");
 		return (1);
 	}
 	if (my_setenv("PWD", cwd, 1) != 0)
 	{
-		fprintf(stderr, "Error: Could not set PWD environment variable\n");
+		perror("Could not set PWD environment variable");
 		return (1);
 	}
 
@@ -82,7 +82,7 @@ int my_setenv(const char *name, const char *value, int overwrite)
 
 	if (env_save == NULL)
 	{
-		fprintf(stderr, "Error: Memory allocation failed\n");
+		perror("Memory allocation failed");
 		return (1);
 	}
 
@@ -104,7 +104,7 @@ int my_setenv(const char *name, const char *value, int overwrite)
 	}
 	if (putenv(env_save) != 0)
 	{
-		fprintf(stderr, "Error: Setting environment variable failed\n");
+		perror("Setting environment variable failed");
 		return (1);
 	}
 	return (0);
@@ -123,7 +123,7 @@ int my_unsetenv(char **args)
 
 	if (args[1] == NULL || args[2] != NULL)
 	{
-		fprintf(stderr, "Error: Invalid argument(s)\n");
+		perror("Invalid argument");
 		return (1);
 	}
 

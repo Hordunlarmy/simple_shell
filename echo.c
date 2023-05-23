@@ -45,57 +45,26 @@ char *_itoa(int value)
  */
 int my_echo(char **args)
 {
-	int i, pid;
-	char *value;
-	char *var_name;
+	int i, len;
 	int printed_chars = 0;
 
 	for (i = 1; args[i] != NULL && i < MAXARGS - 1; i++)
 	{
 		if (_strcmp(args[i], "$$") == 0)
 		{
-			pid = getpid();
-			char *pid_str = _itoa(pid);
-
-			if (pid_str != NULL)
-			{
-				int len = _strlen(pid_str);
-
-				printed_chars += write(STDOUT_FILENO, pid_str, len);
-				free(pid_str);
-			}
+			echo_ppid(printed_chars);
 		}
 		else if (_strcmp(args[i], "$?") == 0)
 		{
-			int exit_status = exit_stat();
-			char *exit_status_str = _itoa(exit_status);
-
-			if (exit_status_str != NULL)
-			{
-				int len = _strlen(exit_status_str);
-
-				printed_chars += write(STDOUT_FILENO, exit_status_str, len);
-				free(exit_status_str);
-			}
+			echo_exit(printed_chars);
 		}
 		else if (args[i][0] == '$')
 		{
-			var_name = args[i] + 1;
-			value = _getenv(var_name);
-			if (value != NULL)
-			{
-				int len = _strlen(value);
-				printed_chars += write(STDOUT_FILENO, value, len);
-				printed_chars += len;
-			}
-			else
-			{
-				return (0);
-			}
+			echo_env(printed_chars, args, i);
 		}
 		else
 		{
-			int len = _strlen(args[i]);
+			len = _strlen(args[i]);
 			printed_chars += write(STDOUT_FILENO, args[i], len);
 			printed_chars += len;
 		}
@@ -105,7 +74,77 @@ int my_echo(char **args)
 			printed_chars++;
 		}
 	}
-
-
 	return (printed_chars);
+}
+
+/**
+ * echo_ppid - Entry point
+ * @printed_chars: character count
+ * Return: Always 0 (Success)
+ */
+int echo_ppid(int printed_chars)
+{
+	int len;
+	pid_t pid;
+	char *pid_str;
+
+			pid = getpid();
+			pid_str = _itoa(pid);
+
+			if (pid_str != NULL)
+			{
+				len = _strlen(pid_str);
+
+				printed_chars += write(STDOUT_FILENO, pid_str, len);
+				free(pid_str);
+			}
+			return (0);
+}
+
+/**
+ * echo_exit - Entry point
+ * @printed_chars: character count
+ * Return: Always 0 (Success)
+ */
+int echo_exit(int printed_chars)
+{
+
+	int exit_status = exit_stat();
+	char *exit_status_str = _itoa(exit_status);
+
+	if (exit_status_str != NULL)
+	{
+		int len = _strlen(exit_status_str);
+
+		printed_chars += write(STDOUT_FILENO, exit_status_str, len);
+		free(exit_status_str);
+	}
+	return (0);
+}
+
+/**
+ * echo_env - Entry point
+ * @printed_chars: character count
+ * @args: arguments
+ * @i: iterate variable
+ * Return: Always 0 (Success)
+ */
+int echo_env(int printed_chars, char **args, int i)
+{
+	int len;
+	char *value;
+	char *var_name;
+
+	var_name = args[i] + 1;
+	value = _getenv(var_name);
+
+	if (value != NULL)
+	{
+		len = _strlen(value);
+		printed_chars += write(STDOUT_FILENO, value, len);
+		printed_chars += len;
+	}
+	else
+		return (0);
+	return (0);
 }
