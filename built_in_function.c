@@ -7,7 +7,6 @@
 int built_ins(char **args)
 {
 	int exit_status;
-	char *env_ptr;
 
 	if (_strcmp(args[0], "exit") == 0)
 	{
@@ -17,11 +16,10 @@ int built_ins(char **args)
 			exit(exit_status);
 		}
 		_freeargs(args);
-		free(env_ptr);
 		exit(0);
 	}
 	if (args[0] == NULL)
-		exit(EXIT_SUCCESS);
+		return (1);
 
 	if (_strcmp(args[0], "env") == 0)
 	{

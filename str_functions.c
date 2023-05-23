@@ -28,13 +28,19 @@ int _strcmp(const char *s1, const char *s2)
 	const char *p2 = s2;
 	int i = 0;
 
+	if (p1 == NULL && p2 == NULL)
+		return (0);
+	else if (p1 == NULL)
+		return (-1);
+	else if (p2 == NULL)
+		return (1);
+
 	while (*(p1 + i) != '\0' && *(p2 + i) != '\0' && p1[i] == p2[i])
 	{
 		i++;
 	}
 	return (p1[i] - p2[i]);
 }
-
 
 /**
  * _strchr - Entry point

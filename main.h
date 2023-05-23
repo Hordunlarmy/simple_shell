@@ -15,7 +15,6 @@
 /** Global environment */
 extern char **environ;
 extern int exit_status;
-extern char *env_ptr;
 
 
 /** MACROS **/
@@ -76,7 +75,7 @@ int my_unsetenv(char **args);
 linked_path *link_path(void);
 
 /** execute functions */
-int execute(char *command);
+int execute(char *command, int line_num);
 int execute_with_path(char **args);
 ssize_t get_line(char **buffer, size_t *bufsize, int fd);
 int my_cd(char **args);
@@ -95,6 +94,7 @@ int _strcmp(const char *s1, const char *s2);
 char *_strchr(const char *s, const char c);
 char *_strdup(const char *str);
 int _strncmp(const char *s1, const char *s2, size_t n);
+void print_error(const char *cmd, const char *msg, int line_num);
 
 
 #endif /* MAIN_H */

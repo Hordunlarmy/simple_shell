@@ -12,6 +12,7 @@ int main(int argc __attribute__((unused)), char **argv)
 	char *shellPrompt = interactive ? "#cisfun$ " : "";
 	size_t n = 0;
 	ssize_t line;
+	int line_num = 1;
 
 	for (;;)
 	{
@@ -32,7 +33,8 @@ int main(int argc __attribute__((unused)), char **argv)
 		}
 		if (line == 0 || **argv == '\n')
 			continue;
-		execute(*argv);
+		execute(*argv, line_num);
+		line_num++;
 		_freeargs(argv);
 	}
 

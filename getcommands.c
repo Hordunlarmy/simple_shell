@@ -89,8 +89,7 @@ ssize_t get_line(char **buffer, size_t *bufsize, int fd)
 				(*buffer)[len] = '\0';
 				return (len);
 			}
-			(*buffer)[len] = line_buffer[i];
-			len++;
+			(*buffer)[len++] = line_buffer[i];
 			if (len >= *bufsize)
 			{
 				*bufsize *= 2;
