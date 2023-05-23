@@ -1,21 +1,9 @@
 #include "leak_hunter.h"
 
-#undef fmalloc
-#undef free
+#undef	malloc
+#undef 	free
 
-char *my_strdup(const char *str)
-{
-	size_t len = strlen(str) + 1;
-	char *new_str = malloc(len);
-
-	if (new_str != NULL)
-	{
-		memcpy(new_str, str, len);
-	}
-	return (new_str);
-}
-
-t_list *lstlast(t_list *lst)
+t_list	*lstlast(t_list *lst)
 {
 	if (!lst)
 		return (lst);
@@ -24,50 +12,46 @@ t_list *lstlast(t_list *lst)
 	return (lst);
 }
 
-void lstadd_back(t_list **alst, t_list *neww)
+void	lstadd_back(t_list **alst, t_list *new)
 {
-	neww->next = NULL;
+	new->next = NULL;
 	if (!(*alst))
-		*alst = neww;
+		*alst = new;
 	else
-		lstlast(*alst)->next = neww;
+		lstlast(*alst)->next = new;
 }
 
-t_list *create_node(void *address, size_t size, size_t line, char *file)
+t_list  *create_node(void *address, size_t size, size_t line, char *file)
 {
 	t_list	*new;
 
-	new = (t_list *)malloc(sizeof(t_list));
-
-	if (!new)
+	if (!(new = (t_list *)malloc(sizeof(t_list))))
 		return (NULL);
 	new->address = address;
 	new->size = size;
 	new->line = line;
-	new->file = my_strdup(file);
+	new->file = strdup(file);
 	new->next = NULL;
 	return (new);
 }
 
-void delete_node(t_list **head, void *key)
+void    delete_node(t_list** head, void *key)
 {
-	t_list *tmp, *prev;
+    t_list *tmp, *prev;
 
-	tmp = *head;
-	if (tmp != NULL && tmp->address == key)
-	{
-		*head = tmp->next;
-		free(tmp->file);
-		free(tmp);
-		return;
-	}
-	while (tmp != NULL && tmp->address != key)
-	{
-		prev = tmp;
-		tmp = tmp->next;
-	}
-	if (tmp == NULL)
-		return;
-	prev->next = tmp->next;
-	free(tmp);
+    tmp = *head;
+    if (tmp != NULL && tmp->address == key) {
+        *head = tmp->next;
+        free(tmp->file);
+        free(tmp);
+        return;
+    }
+    while (tmp != NULL && tmp->address != key) {
+        prev = tmp;
+        tmp = tmp->next;
+    }
+    if (tmp == NULL)
+        return;
+    prev->next = tmp->next;
+    free(tmp);
 }

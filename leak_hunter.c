@@ -1,7 +1,7 @@
 #include "leak_hunter.h"
 
-#undef malloc
-#undef free
+#undef	malloc
+#undef 	free
 
 t_list *mem_data = NULL;
 
@@ -21,7 +21,7 @@ void	*xmalloc(size_t size, char *file, size_t line)
 	return (ptr);
 }
 
-void	print_mem_data(void)
+void	print_mem_data()
 {
 	t_list *tmp;
 
@@ -36,7 +36,7 @@ void	print_mem_data(void)
 	}
 }
 
-void	leak_report(void)
+void	leak_report()
 {
 	t_list	*tmp;
 	FILE	*log;
@@ -45,8 +45,7 @@ void	leak_report(void)
 
 	leaks_size = 0;
 	allocated_blocks = 0;
-	log = fopen(OUTPUT_FILE_NAME, "w");
-	if (log)
+	if ((log = fopen(OUTPUT_FILE_NAME, "w")))
 	{
 		tmp = mem_data;
 		while (tmp)
@@ -76,7 +75,7 @@ void	leak_report(void)
 		}
 		else
 			fprintf(log, "│   your code is leaks free!!   │\n");
-		fprintf(log, "└───────────────────────────────┘");
+			fprintf(log, "└───────────────────────────────┘");
 		fclose(log);
 	}
 }

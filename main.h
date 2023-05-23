@@ -3,7 +3,6 @@
 #define _POSIX_C_SOURCE 200809L
 #define _XOPEN_SOURCE 700
 
-#include "leak_hunter.h"
 /* standard library functions */
 #include <stdio.h>
 #include <unistd.h>
@@ -13,6 +12,8 @@
 #include <sys/wait.h>
 #include <stdbool.h>
 #include <ctype.h>
+
+#include "leak_hunter.h"
 
 /** Global environment */
 extern char **environ;
