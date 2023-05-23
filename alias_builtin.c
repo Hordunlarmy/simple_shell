@@ -1,16 +1,16 @@
 #include "main.h"
 /**
  * check_alias - is a function that check if an alias exist
- * @new: is a list of arguments
+ * @neww: is a list of arguments
  * Return: Name of alias if success or NULL if not
  */
-char *check_alias(char *new)
+char *check_alias(char *neww)
 {
 	alias *temp = get_alias_list();
 
 	while (temp != NULL)
 	{
-		if (strcmp(new, temp->new_command) == 0)
+		if (_strcmp(neww, temp->new_command) == 0)
 		{
 			return (temp->new_command);
 		}

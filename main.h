@@ -3,6 +3,7 @@
 #define _POSIX_C_SOURCE 200809L
 #define _XOPEN_SOURCE 700
 
+#include "leak_hunter.h"
 /* standard library functions */
 #include <stdio.h>
 #include <unistd.h>
@@ -60,9 +61,9 @@ void _freepath(linked_path *path);
 /** alias handler functions */
 int my_alias(char **args);
 int create_keyvalue_pair(alias **alias_list, char *args, char *equals);
-alias *add_alias(alias **head, char *new, char *main);
+alias *add_alias(alias **head, char *neww, char *main);
 int print_alias_list(alias *head);
-char *check_alias(char *new);
+char *check_alias(char *neww);
 int execute_alias(char *main, char **args);
 alias *get_alias_list(void);
 
