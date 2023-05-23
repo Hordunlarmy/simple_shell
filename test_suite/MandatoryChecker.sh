@@ -150,11 +150,12 @@ echo "$command2" > 1a2b3c4d5e6f7g8h9b
 run_check "run exe in "./" cwd"
 
 rm ./RUNME
-#>>>> betty testing  <<<<<<
+
+echo -e "\e[35m>>>>>>> betty testing <<<<<<\e[0m"
 
 #remove the hashs below to enable betty testing
 
-#echo "-->" Check documentation
-#betty-doc *.c *.h
-#echo "-->" Check style
-#betty-style *.c *.h
+echo "-->" Check documentation
+betty-doc *.c *.h
+echo "-->" Check style
+betty-style *.c *.h

@@ -22,12 +22,14 @@ int my_env(void)
 /**
  * my_cd - Entry point
  * @args: arguments passed
+ * @line_num: command count
  * Return: void
  */
-int my_cd(char **args)
+int my_cd(char **args, int line_num)
 {
 	char *new_dir, *old_dir;
 	char cwd[1024];
+	char *cd_err = cd_error(args);
 
 	if (args[1] == NULL || _strcmp(args[1], "~") == 0)
 		new_dir = _getenv("HOME");
@@ -40,24 +42,24 @@ int my_cd(char **args)
 
 	if (my_setenv("OLDPWD", old_dir, 1) != 0)
 	{
-		fprintf(stderr, "Error: Could not set OLDPWD environment variable\n");
+		perror("Could not set OLDPWD environment variable");
 		return (1);
 	}
 
 	if (chdir(new_dir) != 0)
 	{
-		fprintf(stderr, "%s: %s: No such file or directory\n", args[0], args[1]);
+		print_error(args[0], cd_err, line_num);
 		return (1);
 	}
 
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 	{
-		fprintf(stderr, "Error: Could not get current directory\n");
+		perror("Could not get current directory");
 		return (1);
 	}
 	if (my_setenv("PWD", cwd, 1) != 0)
 	{
-		fprintf(stderr, "Error: Could not set PWD environment variable\n");
+		perror("Could not set PWD environment variable");
 		return (1);
 	}
 
@@ -78,9 +80,14 @@ int my_setenv(const char *name, const char *value, int overwrite)
 	int len = _strlen(name) + _strlen(value) + 2;
 	char *env_save = malloc(len);
 
+	if (name == NULL || value == NULL)
+	{
+		perror("Invalid arguments");
+		return (1);
+	}
 	if (env_save == NULL)
 	{
-		fprintf(stderr, "Error: Memory allocation failed\n");
+		perror("Memory allocation failed");
 		return (1);
 	}
 
@@ -102,7 +109,7 @@ int my_setenv(const char *name, const char *value, int overwrite)
 	}
 	if (putenv(env_save) != 0)
 	{
-		fprintf(stderr, "Error: Setting environment variable failed\n");
+		perror("Setting environment variable failed");
 		return (1);
 	}
 	return (0);
@@ -121,7 +128,7 @@ int my_unsetenv(char **args)
 
 	if (args[1] == NULL || args[2] != NULL)
 	{
-		fprintf(stderr, "Error: Invalid argument(s)\n");
+		perror("Invalid argument");
 		return (1);
 	}
 
@@ -137,49 +144,5 @@ int my_unsetenv(char **args)
 		}
 	}
 
-	return (0);
-}
-
-
-/**
- * my_echo - Entry point
- * @args: command and arguments
- * Return: Always 0 (Success)
- */
-int my_echo(char **args)
-{
-	int i, pid;
-	char *value;
-	char *var_name;
-
-	for (i = 1; args[i] != NULL && i < MAXARGS - 1; i++)
-	{
-		if (_strcmp(args[i], "$$") == 0)
-		{
-			pid = getpid();
-			printf("%d ", pid);
-		}
-		else if (_strcmp(args[i], "$?") == 0)
-			printf("%d ", exit_stat());
-		else if (args[i][0] == '$')
-		{
-			var_name = args[i] + 1;
-			value = _getenv(var_name);
-			if (value != NULL)
-			{
-				printf("%s ", value);
-			}
-			else
-			{
-				printf("Variable not found: %s ", args[i]);
-			}
-		}
-		else
-		{
-			printf("%s ", args[i]);
-		}
-	}
-
-	printf("\n");
 	return (0);
 }

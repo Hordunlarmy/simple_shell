@@ -15,12 +15,12 @@ int execute(char *command, int line_num)
 	i = tokenize(command, args);
 	args[i] = NULL;
 
-	if (built_ins(args) || built_ins2(args))
+	if (built_ins(args, line_num) || built_ins2(args, line_num))
 		return (0);
 	if (access(args[0], X_OK) == -1)
 	{
-		strcpy(command_path, "/bin/");
-		strcat(command_path, args[0]);
+		_strcpy(command_path, "/bin/");
+		_strcat(command_path, args[0]);
 		if (access(command_path, X_OK) == -1)
 		{
 			print_error(args[0], "not found", line_num);

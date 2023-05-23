@@ -1,61 +1,57 @@
 #include "main.h"
-#include <stdbool.h>
 
-void reverse(char str[], int length)
+
+/**
+ * _strcat - Entry point
+ * @dest: pointer variable 1
+ * @src: pointer variable 2
+ * Return: two strings concatenated)
+ */
+char *_strcat(char *dest, const char *src)
 {
-	int start = 0;
-	int end = length - 1;
+	char *p = dest;
 
-	while (start < end)
+	while (*p)
 	{
-		char temp = str[start];
-
-		str[start] = str[end];
-		str[end] = temp;
-		start++;
-		end--;
+		p++;
 	}
+	while (*src)
+	{
+		*p++ = *src++;
+	}
+	*p = '\0';
+
+	return (dest);
 }
 
-char *_itoa(int num, char *str, int base)
+
+/**
+ * _strcpy - Entry point
+ * @dest: pointer variable 1
+ * @src: pointer variable 2
+ * Return: pointer to dest
+ */
+char *_strcpy(char *dest, const char *src)
 {
-	bool is_negative = false;
-	int i = 0;
+	char *p;
 
-	if (base < 2 || base > 36)
+	while (*src == ' ')
 	{
-		*str = '\0';
-		return (str);
+		src++;
 	}
 
-	if (num < 0)
+	p = dest;
+	while (*src)
 	{
-		if (base == 10)
-		{
-			is_negative = true;
-			num = -num;
-		}
-		else
-		{
-			*str = '\0';
-			return (str);
-		}
+		*p++ = *src++;
 	}
 
-	while (num != 0)
+	while (p > dest && *(p - 1) == ' ')
 	{
-		int rem = num % base;
-
-		str[i++] = (rem > 9) ? (rem - 10) + 'a' : rem + '0';
-		num /= base;
+		p--;
 	}
 
-	if (is_negative)
-		str[i++] = '-';
+	*p = '\0';
 
-	str[i] = '\0';
-
-	reverse(str, i);
-
-	return (str);
+	return (dest);
 }

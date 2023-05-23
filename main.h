@@ -11,6 +11,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <stdbool.h>
+#include <ctype.h>
 
 /** Global environment */
 extern char **environ;
@@ -78,7 +79,7 @@ linked_path *link_path(void);
 int execute(char *command, int line_num);
 int execute_with_path(char **args);
 ssize_t get_line(char **buffer, size_t *bufsize, int fd);
-int my_cd(char **args);
+int my_cd(char **args, int line_num);
 int my_echo(char **args);
 int run_child(char **args);
 int run_parent(void);
@@ -87,14 +88,21 @@ int exit_stat(void);
 /** string / parsing functions */
 char *str_tok(char *command, const char *delim);
 int tokenize(char *command, char **args);
-int built_ins(char **args);
-int built_ins2(char **args);
+int built_ins(char **args, int line_num);
+int built_ins2(char **args, int line_num);
 int _strlen(const char *s);
 int _strcmp(const char *s1, const char *s2);
 char *_strchr(const char *s, const char c);
 char *_strdup(const char *str);
 int _strncmp(const char *s1, const char *s2, size_t n);
 void print_error(const char *cmd, const char *msg, int line_num);
+char *_itoa(int value);
+char *cd_error(char **args);
+char *_strcat(char *dest, const char *src);
+char *_strcpy(char *dest, const char *src);
+int echo_ppid(int printed_chars);
+int echo_exit(int printed_chars);
+int echo_env(int printed_chars, char **args, int i);
 
 
 #endif /* MAIN_H */
