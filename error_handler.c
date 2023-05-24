@@ -9,7 +9,7 @@
  */
 void print_error(const char *cmd, const char *msg, int line_num)
 {
-	const char *shell_name = "sh";
+	const char *shell_name = "hsh";
 	const char *separator = ": ";
 	char line_number_str[16];
 	unsigned long int i = 0;
