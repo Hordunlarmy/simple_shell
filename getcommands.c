@@ -71,9 +71,8 @@ ssize_t get_line(char **buffer, size_t *bufsize, int fd)
 	*buffer = malloc(*bufsize * sizeof(char));
 	if (!*buffer)
 	{
+		not_buff();
 		free(*buffer);
-		perror("get_line");
-		exit(EXIT_FAILURE);
 	}
 	while ((read_bytes = read(fd, line_buffer, line_buffer_size)) != 0)
 	{
@@ -95,12 +94,20 @@ ssize_t get_line(char **buffer, size_t *bufsize, int fd)
 				*bufsize *= 2;
 				*buffer = realloc(*buffer, *bufsize * sizeof(char));
 				if (!*buffer)
-				{
-					perror("get_line");
-					exit(EXIT_FAILURE);
-				}
+					not_buff();
 			}
 		}
 	}
+	free(*buffer);
 	return (-1);
+}
+
+/**
+ * not_buff - Entry point
+ * Return: error
+ */
+void not_buff(void)
+{
+	perror("get_line");
+	exit(EXIT_FAILURE);
 }

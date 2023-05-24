@@ -60,9 +60,9 @@ void _freepath(linked_path *path);
 /** alias handler functions */
 int my_alias(char **args);
 int create_keyvalue_pair(alias **alias_list, char *args, char *equals);
-alias *add_alias(alias **head, char *new, char *main);
+alias *add_alias(alias **head, char *neww, char *main);
 int print_alias_list(alias *head);
-char *check_alias(char *new);
+char *check_alias(char *neww);
 int execute_alias(char *main, char **args);
 alias *get_alias_list(void);
 
@@ -103,6 +103,7 @@ char *_strcpy(char *dest, const char *src);
 int echo_ppid(int printed_chars);
 int echo_exit(int printed_chars);
 int echo_env(int printed_chars, char **args, int i);
+void not_buff(void);
 
 
 #endif /* MAIN_H */
