@@ -78,7 +78,7 @@ int my_setenv(const char *name, const char *value, int overwrite)
 {
 	int i, j;
 	int len;
-	char *env_save;
+	char *env;
 
 	if (name == NULL || value == NULL)
 	{
@@ -86,8 +86,8 @@ int my_setenv(const char *name, const char *value, int overwrite)
 		return (1);
 	}
 	len = _strlen(name) + _strlen(value) + 2;
-	env_save = malloc(len);
-	if (env_save == NULL)
+	env = malloc(len);
+	if (env == NULL)
 	{
 		perror("Memory allocation failed");
 		return (1);
@@ -95,26 +95,25 @@ int my_setenv(const char *name, const char *value, int overwrite)
 
 	for (i = 0; name[i] != '\0'; i++)
 	{
-		env_save[i] = name[i];
+		env[i] = name[i];
 	}
-	env_save[i] = '=';
+	env[i] = '=';
 
 	for (j = 0; value[j] != '\0'; j++)
 	{
-		env_save[i + j + 1] = value[j];
+		env[i + j + 1] = value[j];
 	}
-	env_save[i + j + 1] = '\0';
+	env[i + j + 1] = '\0';
 
 	if (overwrite == 0 && _getenv(name) != NULL)
 	{
 		return (0);
 	}
-	if (putenv(env_save) != 0)
+	if (putenv(env) != 0)
 	{
 		perror("Setting environment variable failed");
 		return (1);
 	}
-	free(env_save);
 	return (0);
 }
 

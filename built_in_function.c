@@ -16,8 +16,7 @@ int built_ins(char **args, int line_num)
 			exit_status = atoi(args[1]);
 			exit(exit_status);
 		}
-		_freeargs(args);
-		exit(0);
+		exit(EXIT_SUCCESS);
 	}
 	if (args[0] == NULL)
 		return (1);
