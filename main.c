@@ -1,5 +1,7 @@
 #include "main.h"
 
+void handleSignal(int signal);
+
 /**
  * main - Entry point
  * @argc: argument count
@@ -14,6 +16,8 @@ int main(int argc __attribute__((unused)), char **argv)
 	ssize_t line;
 	int line_num = 1;
 	char **cmd;
+
+	signal(SIGINT, SIG_IGN);
 
 	for (;;)
 	{
@@ -42,6 +46,20 @@ int main(int argc __attribute__((unused)), char **argv)
 		_freeargs(argv);
 		line_num++;
 	}
-
 	return (0);
+}
+
+
+/**
+ * handleSignal - Entry point
+ * @signal: signal
+ * Return: Always 0 (Success)
+ */
+void handleSignal(int signal)
+{
+	(void)signal;
+	if (signal == SIGINT)
+	{
+		write(STDOUT_FILENO, "\n", 1);
+	}
 }
