@@ -50,7 +50,6 @@ int built_ins2(char **args, int line_num __attribute__ ((unused)))
 		my_alias(args);
 		return (1);
 	}
-
 	if (_strcmp(args[0], "echo") == 0)
 	{
 		my_echo(args);
