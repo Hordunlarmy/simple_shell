@@ -77,14 +77,16 @@ int my_cd(char **args, int line_num)
 int my_setenv(const char *name, const char *value, int overwrite)
 {
 	int i, j;
-	int len = _strlen(name) + _strlen(value) + 2;
-	char *env_save = malloc(len);
+	int len;
+	char *env_save;
 
 	if (name == NULL || value == NULL)
 	{
 		perror("Invalid arguments");
 		return (1);
 	}
+	len = _strlen(name) + _strlen(value) + 2;
+	env_save = malloc(len);
 	if (env_save == NULL)
 	{
 		perror("Memory allocation failed");
