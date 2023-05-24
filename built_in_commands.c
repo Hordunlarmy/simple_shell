@@ -192,6 +192,5 @@ int my_exit(char **args)
 			}
 		}
 	}
-	_freeargs(args);
 	exit(exit_status);
 }
