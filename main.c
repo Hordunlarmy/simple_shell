@@ -9,7 +9,7 @@
 int main(int argc __attribute__((unused)), char **argv)
 {
 	bool interactive = isatty(STDIN_FILENO);
-	char *shellPrompt = interactive ? "#cisfun$ " : "";
+	char *shellPrompt = interactive ? "$ " : "";
 	size_t n = 0;
 	ssize_t line;
 	int line_num = 1;
@@ -18,7 +18,7 @@ int main(int argc __attribute__((unused)), char **argv)
 	{
 		if (interactive)
 		{
-			write(STDOUT_FILENO, shellPrompt, 10);
+			write(STDOUT_FILENO, shellPrompt, 3);
 			fflush(stdout);
 		}
 		line = get_line(argv, &n, STDIN_FILENO);
