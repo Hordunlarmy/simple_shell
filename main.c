@@ -1,7 +1,5 @@
 #include "main.h"
 
-void handleSignal(int signal);
-
 /**
  * main - Entry point
  * @argc: argument count
@@ -47,19 +45,4 @@ int main(int argc __attribute__((unused)), char **argv)
 		line_num++;
 	}
 	return (0);
-}
-
-
-/**
- * handleSignal - Entry point
- * @signal: signal
- * Return: Always 0 (Success)
- */
-void handleSignal(int signal)
-{
-	(void)signal;
-	if (signal == SIGINT)
-	{
-		write(STDOUT_FILENO, "\n", 1);
-	}
 }
