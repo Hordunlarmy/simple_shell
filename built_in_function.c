@@ -8,7 +8,7 @@
  */
 int built_ins(char **args, int line_num)
 {
-	int exit_status;
+	int i, exit_status;
 
 	if (_strcmp(args[0], "exit") == 0)
 	{
@@ -40,6 +40,10 @@ int built_ins(char **args, int line_num)
 		my_unsetenv(args);
 		return (1);
 	}
+	for (i = 0; args[i] != NULL; i++)
+	{
+		free(args[i]);
+	}
 	return (0);
 }
 /**
@@ -50,6 +54,8 @@ int built_ins(char **args, int line_num)
  */
 int built_ins2(char **args, int line_num __attribute__ ((unused)))
 {
+	int i;
+
 	if (_strcmp(args[0], "alias") == 0)
 	{
 		my_alias(args);
@@ -61,6 +67,10 @@ int built_ins2(char **args, int line_num __attribute__ ((unused)))
 		my_echo(args);
 		write(STDOUT_FILENO, "\n", 1);
 		return (1);
+	}
+	for (i = 0; args[i] != NULL; i++)
+	{
+		free(args[i]);
 	}
 
 	return (0);
