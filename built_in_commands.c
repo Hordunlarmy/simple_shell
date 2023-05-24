@@ -148,3 +148,49 @@ int my_unsetenv(char **args)
 
 	return (0);
 }
+
+
+/**
+ * my_exit - Entry point
+ * @args: command and arguments
+ * Return: Always 0 (Success)
+ */
+int my_exit(char **args)
+{
+	unsigned int exit_status = 0;
+	unsigned int max = 1 << (sizeof(int) * 8 - 1);
+	int i = 0, len = 10;
+
+	if (args[1] != NULL)
+	{
+		if (args[1][0] == '+')
+		{
+			i = 1;
+			len++;
+		}
+
+		if (args[1][i] != '\0')
+		{
+			while (args[1][i] != '\0')
+			{
+				if (i <= len && args[1][i] >= '0' && args[1][i] <= '9')
+				{
+					exit_status = (exit_status * 10) + (args[1][i] - '0');
+				}
+				else
+				{
+					printf("Invalid exit status.\n");
+					return (-1);
+				}
+				i++;
+			}
+
+			if (exit_status > max - 1)
+			{
+				printf("Invalid exit status.\n");
+				return (-1);
+			}
+		}
+	}
+	exit(exit_status);
+}

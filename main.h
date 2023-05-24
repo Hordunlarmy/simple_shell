@@ -104,6 +104,7 @@ int echo_ppid(int printed_chars);
 int echo_exit(int printed_chars);
 int echo_env(int printed_chars, char **args, int i);
 void not_buff(void);
+int my_exit(char **args);
 
 
 #endif /* MAIN_H */

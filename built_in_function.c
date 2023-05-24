@@ -7,19 +7,14 @@
  */
 int built_ins(char **args, int line_num)
 {
-	int exit_status;
+	if (args[0] == NULL)
+		return (1);
 
 	if (_strcmp(args[0], "exit") == 0)
 	{
-		if (args[1] != NULL)
-		{
-			exit_status = atoi(args[1]);
-			exit(exit_status);
-		}
+		my_exit(args);
 		exit(EXIT_SUCCESS);
 	}
-	if (args[0] == NULL)
-		return (1);
 	if (_strcmp(args[0], "env") == 0)
 	{
 		my_env();
