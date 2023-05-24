@@ -81,7 +81,6 @@ ssize_t get_line(char **buffer, size_t *bufsize, int fd)
 			(*buffer)[len] = '\0';
 			return (len);
 		}
-
 		len++;
 
 		if (len >= *bufsize)
@@ -90,15 +89,16 @@ ssize_t get_line(char **buffer, size_t *bufsize, int fd)
 			*buffer = realloc(*buffer, *bufsize * sizeof(char));
 			if (!*buffer)
 				not_buff();
+			free(*buffer);
+			return (-1);
 		}
 	}
-
 	if (read_bytes == -1)
 	{
+		free(*buffer);
 		perror("read");
 		exit(EXIT_FAILURE);
 	}
-
 	free(*buffer);
 	return (-1);
 }

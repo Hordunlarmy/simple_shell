@@ -27,8 +27,7 @@ int my_env(void)
  */
 int my_cd(char **args, int line_num)
 {
-	char *new_dir, *old_dir;
-	char cwd[1024];
+	char *new_dir, *old_dir, cwd[1024];
 	char *cd_err = cd_error(args);
 
 	if (args[1] == NULL || _strcmp(args[1], "~") == 0)
@@ -37,22 +36,23 @@ int my_cd(char **args, int line_num)
 		new_dir = _getenv("OLDPWD");
 	else
 		new_dir = args[1];
-
+	if (new_dir == NULL)
+	{
+		perror("Directory not found");
+		return (1);
+	}
 	old_dir = _getenv("PWD");
-
 	if (my_setenv("OLDPWD", old_dir, 1) != 0)
 	{
 		perror("Could not set OLDPWD environment variable");
 		return (1);
 	}
-
 	if (chdir(new_dir) != 0)
 	{
 		print_error(args[0], cd_err, line_num);
 		free(cd_err);
 		return (1);
 	}
-
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 	{
 		perror("Could not get current directory");
