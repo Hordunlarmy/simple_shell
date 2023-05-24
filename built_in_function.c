@@ -1,5 +1,4 @@
 #include "main.h"
-
 /**
  * built_ins - Entry point
  * @args: command and arguments
@@ -15,8 +14,10 @@ int built_ins(char **args, int line_num)
 		if (args[1] != NULL)
 		{
 			exit_status = atoi(args[1]);
+			exit(exit_status);
 		}
-		exit(exit_status);
+		_freeargs(args);
+		exit(0);
 	}
 	if (args[0] == NULL)
 		return (1);
@@ -50,7 +51,6 @@ int built_ins(char **args, int line_num)
  */
 int built_ins2(char **args, int line_num __attribute__ ((unused)))
 {
-
 	if (_strcmp(args[0], "alias") == 0)
 	{
 		my_alias(args);
