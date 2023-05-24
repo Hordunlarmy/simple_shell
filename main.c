@@ -13,6 +13,7 @@ int main(int argc __attribute__((unused)), char **argv)
 	size_t n = 0;
 	ssize_t line;
 	int line_num = 1;
+	char **cmd;
 
 	for (;;)
 	{
@@ -30,10 +31,15 @@ int main(int argc __attribute__((unused)), char **argv)
 			}
 			break;
 		}
-		if (line == 0 || **argv == '\n')
+		if (line == 0 || *argv[0] == '\n')
 			continue;
-		execute(*argv, line_num);
-		line_num++;
+		cmd = argv;
+		while (*cmd != NULL)
+		{
+			execute(*cmd, line_num);
+			cmd++;
+			line_num++;
+		}
 		_freeargs(argv);
 	}
 
