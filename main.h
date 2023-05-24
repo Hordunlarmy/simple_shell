@@ -13,8 +13,6 @@
 #include <stdbool.h>
 #include <ctype.h>
 
-#include "leak_hunter.h"
-
 /** Global environment */
 extern char **environ;
 extern int exit_status;
