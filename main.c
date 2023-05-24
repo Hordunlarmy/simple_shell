@@ -9,17 +9,16 @@
 int main(int argc __attribute__((unused)), char **argv)
 {
 	bool interactive = isatty(STDIN_FILENO);
-	char *shellPrompt = interactive ? "$ " : "";
+	char *shellPrompt = interactive ? "#cisfun$ " : "";
 	size_t n = 0;
 	ssize_t line;
 	int line_num = 1;
-	char **cmd;
 
 	for (;;)
 	{
 		if (interactive)
 		{
-			write(STDOUT_FILENO, shellPrompt, 3);
+			write(STDOUT_FILENO, shellPrompt, 10);
 			fflush(stdout);
 		}
 		line = get_line(argv, &n, STDIN_FILENO);
@@ -29,18 +28,14 @@ int main(int argc __attribute__((unused)), char **argv)
 			{
 				write(1, "\n", 1);
 			}
+			write(1, "\n", 1);
 			break;
 		}
-		if (line == 0 || *argv[0] == '\n')
+		if (line == 0 || **argv == '\n')
 			continue;
-		cmd = argv;
-		while (*cmd != NULL)
-		{
-			execute(*cmd, line_num);
-			cmd++;
-		}
-		_freeargs(argv);
+		execute(*argv, line_num);
 		line_num++;
+		_freeargs(argv);
 	}
 
 	return (0);
