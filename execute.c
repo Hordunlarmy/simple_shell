@@ -10,7 +10,7 @@ int execute(char *command, int line_num)
 	char *args[MAXARGS];
 	char command_path[MAX_PATH_LENGTH];
 	pid_t pid;
-	int i;
+	int i, exit_stat = 0;
 
 	i = tokenize(command, args);
 	args[i] = NULL;
@@ -34,14 +34,14 @@ int execute(char *command, int line_num)
 		exit(EXIT_FAILURE);
 
 	if (pid != 0)
-		run_parent();
+		exit_stat = run_parent();
 
 	if (pid == 0 && args[0][0] != '\0')
 	{
-		run_child(args);
+		exit_stat = run_child(args);
 	}
 
-	return (0);
+	return (exit_stat);
 }
 
 
