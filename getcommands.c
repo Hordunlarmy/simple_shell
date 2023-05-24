@@ -63,45 +63,45 @@ char *_getenv(const char *name)
  */
 ssize_t get_line(char **buffer, size_t *bufsize, int fd)
 {
-	static char line_buffer[1024];
 	static size_t line_buffer_size = 1024;
-	ssize_t i, read_bytes;
+	ssize_t read_bytes;
 	size_t len = 0;
-	*bufsize = 1024;
+	*bufsize = line_buffer_size;
 	*buffer = malloc(*bufsize * sizeof(char));
+
 	if (!*buffer)
 	{
 		not_buff();
-		free(*buffer);
 	}
-	while ((read_bytes = read(fd, line_buffer, line_buffer_size)) != 0)
+
+	while ((read_bytes = read(fd, *buffer + len, 1)) > 0)
 	{
-		if (read_bytes == -1)
+		if ((*buffer)[len] == '\n')
 		{
-			perror("read");
-			exit(EXIT_FAILURE);
+			(*buffer)[len] = '\0';
+			return (len);
 		}
-		for (i = 0; i < read_bytes; i++)
+
+		len++;
+
+		if (len >= *bufsize)
 		{
-			if (line_buffer[i] == '\n')
-			{
-				(*buffer)[len] = '\0';
-				return (len);
-			}
-			(*buffer)[len++] = line_buffer[i];
-			if (len >= *bufsize)
-			{
-				*bufsize *= 2;
-				*buffer = realloc(*buffer, *bufsize * sizeof(char));
-				if (!*buffer)
-					not_buff();
-			}
+			*bufsize *= 2;
+			*buffer = realloc(*buffer, *bufsize * sizeof(char));
+			if (!*buffer)
+				not_buff();
 		}
 	}
+
+	if (read_bytes == -1)
+	{
+		perror("read");
+		exit(EXIT_FAILURE);
+	}
+
 	free(*buffer);
 	return (-1);
 }
-
 /**
  * not_buff - Entry point
  * Return: error

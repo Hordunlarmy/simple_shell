@@ -38,9 +38,9 @@ int main(int argc __attribute__((unused)), char **argv)
 		{
 			execute(*cmd, line_num);
 			cmd++;
-			line_num++;
 		}
 		_freeargs(argv);
+		line_num++;
 	}
 
 	return (0);
