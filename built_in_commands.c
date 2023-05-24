@@ -49,20 +49,23 @@ int my_cd(char **args, int line_num)
 	if (chdir(new_dir) != 0)
 	{
 		print_error(args[0], cd_err, line_num);
+		free(cd_err);
 		return (1);
 	}
 
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 	{
 		perror("Could not get current directory");
+		free(cd_err);
 		return (1);
 	}
 	if (my_setenv("PWD", cwd, 1) != 0)
 	{
 		perror("Could not set PWD environment variable");
+		free(cd_err);
 		return (1);
 	}
-
+	free(cd_err);
 	return (0);
 }
 
@@ -92,7 +95,6 @@ int my_setenv(const char *name, const char *value, int overwrite)
 		perror("Memory allocation failed");
 		return (1);
 	}
-
 	for (i = 0; name[i] != '\0'; i++)
 	{
 		env[i] = name[i];
@@ -104,16 +106,18 @@ int my_setenv(const char *name, const char *value, int overwrite)
 		env[i + j + 1] = value[j];
 	}
 	env[i + j + 1] = '\0';
-
 	if (overwrite == 0 && _getenv(name) != NULL)
 	{
+		free(env);
 		return (0);
 	}
 	if (putenv(env) != 0)
 	{
 		perror("Setting environment variable failed");
+		free(env);
 		return (1);
 	}
+	free(env);
 	return (0);
 }
 

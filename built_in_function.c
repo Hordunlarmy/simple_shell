@@ -13,7 +13,7 @@ int built_ins(char **args, int line_num)
 	if (_strcmp(args[0], "exit") == 0)
 	{
 		my_exit(args);
-		exit(EXIT_SUCCESS);
+		exit(2);
 	}
 	if (_strcmp(args[0], "env") == 0)
 	{
