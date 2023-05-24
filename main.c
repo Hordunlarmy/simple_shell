@@ -27,7 +27,7 @@ int main(int argc __attribute__((unused)), char **argv)
 		{
 			if (feof(stdin))
 			{
-				write(1, "\n", 1);
+				exit(EXIT_SUCCESS);
 			}
 			break;
 		}
