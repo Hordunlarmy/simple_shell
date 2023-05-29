@@ -1,0 +1,5 @@
+#!/bin/bash
+
+path_to_c_files="/root/simple_shell/*.c"
+path_to_executable="/root/simple_shell/hsh"
+gcc -Wall -Werror -Wextra -pedantic -std=gnu89 $path_to_c_files -o $path_to_executable

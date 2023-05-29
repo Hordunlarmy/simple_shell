@@ -1,9 +1,11 @@
 #!/bin/bash
 
-path="~/simple_shell/hsh"
 chmod u+x checker.bash
-echo -e "\e[35m                   >>>>>>>>> TASK 14 <<<<<<<<<<<\e[0m"
-echo -e "\e[35m                   .............................\e[0m\n"
+
+path="/root/simple_shell/hsh"
+
+echo -e "\e[36m                   >>>>>>>>> TASK 14 <<<<<<<<<<<\e[0m"
+echo -e "\e[36m                   .............................\e[0m\n"
 echo -e "\n\e[32mCheck 0. README is present and not empty\e[0m"
 
 echo -e "\n\e[32mCheck 1. Compile program\e[0m"
